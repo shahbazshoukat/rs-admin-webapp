@@ -1,0 +1,141 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" >
+  <!-- Mask -->
+  <span class="mask bg-gradient-default opacity-8"></span>
+  <!-- Header container -->
+
+</div>
+<div class="container-fluid mt--7">
+  <div class="row">
+
+    <div class="col-xl-12 order-xl-1">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">Add a Result</h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <form (submit) = "addResult(resultForm)" #resultForm="ngForm" >
+            <h6 class="heading-small text-muted mb-4">User information</h6>
+            <div class="pl-lg-4">
+              <div class="row" >
+                  <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label" >Announce Status</label>
+                        <span class="clearfix"></span>
+                        <label class="custom-toggle">
+                            <input name="status" [ngModel]=" isEdit ? resultToUpdate.status : ''" type="checkbox" >
+                            <span class="custom-toggle-slider rounded-circle"></span>
+                          </label>
+                      </div>
+                    </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label">Class</label>
+                    <select  name="clas" [ngModel]=" isEdit ? resultToUpdate.section : ''" class="form-control form-control-alternative">
+                      <option *ngFor="let cls of classes" value="{{cls._id}}" >{{cls.title}}</option>
+                   </select>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" >Board</label>
+                    <select (change) = "changeBoard($event)"  name="board" [ngModel]=" isEdit ? resultToUpdate.board : ''" class="form-control form-control-alternative">
+                      <option *ngFor="let board of boards" value="{{board._id}}" >{{board.title}}</option>
+                   </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label">Year</label>
+                    <select name="year" [ngModel]=" isEdit ? resultToUpdate.year : ''" class="form-control form-control-alternative">
+                      <option value="" disabled>Select Year</option>
+                      <option value="2023" >2023</option>
+                      <option value="2022" >2022</option>
+                      <option value="2021" >2021</option>
+                      <option value="2020" >2020</option>
+                      <option value="2019" >2019</option>
+                      <option value="2018" >2018</option>
+                      <option value="2017" >2017</option>
+                      <option value="2016" >2016</option>
+                      <option value="2015" >2015</option>
+                      <option value="2014" >2014</option>
+                      <option value="2013" >2013</option>
+                      <option value="2012" >2012</option>
+                      <option value="2011" >2011</option>
+                      <option value="2010" >2010</option>
+                   </select>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                    <label class="form-control-label">Announce Date</label>
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                    </div>
+                    <input name="announceDate" [ngModel]=" isEdit ? resultToUpdate.annDate : ''" class="form-control datepicker" placeholder="Select date" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" type="text"/>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label" >Exam Type</label>
+                      <select name="examType" [ngModel]=" isEdit ? resultToUpdate.examType : ''" class="form-control form-control-alternative">
+                        <option value="" disabled>Select Exam Type</option>
+                        <option value="0" >Annual</option>
+                        <option value="1" >Supply</option>
+                        <option value="2" >Test</option>
+                        <option value="3" >Retotal</option>
+                     </select>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label class="form-control-label" >Result URL</label>
+                        <input *ngIf="!selectedBoard" name="resultUrl" [ngModel]=" isEdit ? resultToUpdate.resultUrl : ''"  class="form-control form-control-alternative" placeholder="Result URL" value="" type="text">
+                        <input *ngIf="selectedBoard" name="resultUrl" [ngModel]=" selectedBoard.resultUrl ? selectedBoard.resultUrl : ''"  class="form-control form-control-alternative" placeholder="Result URL" value="" type="text">
+                      </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                      <div class="form-group">
+                        <label class="form-control-label" >Tags</label>
+                          <form (submit) = "addTag(tagForm)" #tagForm = "ngForm" >
+                            <input name="tagTitle" ngModel  class="form-control form-control-alternative" placeholder="Tags" value="" type="text">
+                            <button class="btn btn-sm btn-primary" style="margin-top: 10px;" type="submit"  >Add</button>
+                          </form>
+                      </div>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-8" *ngFor="let tag of tags">
+                    <span class="badge badge-primary" (click)="removeTag(tag)" >{{tag}}</span>
+                  </div>
+                </div>
+            </div>
+            <div class="text-center">
+              <button *ngIf="!isEdit" type="button" class="btn btn-primary my-4" type="submit">Add Result</button>
+              <button *ngIf="isEdit" type="button" class="btn btn-primary my-4" type="submit">Update</button>
+              <button type="button" class="btn btn-primary my-4" (click)="cancel()">Cancel</button>
+            </div>
+            <div *ngIf="isLoading" class="loader">
+              <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions" (animationCreated)="loadingAnimationCreated($event)"></ng-lottie>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ngx-alerts></ngx-alerts>

@@ -1,0 +1,117 @@
+<div class="header bg-gradient-default pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <div class="row align-items-center">
+            <div class="col-4">
+              <h3 class="mb-0">{{selectedBoard}} Results</h3>
+            </div>
+            <div class="col-4 text-left">
+              <input name="search" (input)="searchResults($event)"  class="form-control form-control-alternative border-light border shadow-none" placeholder="Search" value="" type="text">
+            </div>
+            <div class="col-4 text-right">
+              <a [routerLink]="['/rs-admin/add-result', selectedBoardKey]" class="btn btn-sm btn-primary">Add</a>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush table-sm">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Class</th>
+                <th scope="col">Year</th>
+                <th scope="col">Exam Type</th>
+                <th scope="col">Announce Date</th>
+                <th scope="col">Status</th>
+                <th scope="col">Views</th>
+                <th scope="col">URL</th>
+                <th scope="col">Comments</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody *ngIf="!isLoading" style="max-height: 700px; overflow-y: auto" class="scrollbar-inner">
+              <tr *ngFor = "let result of filteredResults">
+                <td>
+                  {{result.section.title}}
+                </td>
+                <td>
+                  {{result.year}}
+                </td>
+                <td>
+                  {{extractExamType(result.examType)}}
+                </td>
+                <td>
+                  {{extractDate(result.announceDate)}}
+                </td>
+                <td>
+                  <label class="custom-toggle">
+                    <input type="checkbox" *ngIf="!result.status" (change)="changeResultStatus({status: result.status, _id: result._id})">
+                    <input type="checkbox" *ngIf="result.status" (change)="changeResultStatus({status: result.status, _id: result._id})" checked="">
+                    <span class="custom-toggle-slider rounded-circle"></span>
+                  </label>
+                </td>
+                <td>
+                  {{result.views}}
+                </td>
+                <td>
+                  <a href="{{result.resultUrl}}" >URL</a>
+                </td>
+                <td>
+                  <a class="btn btn-primary btn-sm" [routerLink]="['/rs-admin/comments/result/', result._id]" >Comments</a>
+                </td>
+                <td class="text-right">
+                  <div ngbDropdown   placement="bottom-right">
+                    <a class="btn btn-sm btn-icon-only text-light" (click)="editResult(result._id)">
+                      <i class="fas fa-edit"></i>
+                    </a>
+                    <a class="btn btn-sm btn-icon-only text-light" (click)="removeResult(result)" >
+                      <i style="font-size: large;" class="ni ni-fat-remove"></i>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer py-4">
+          <nav aria-label="...">
+            <ul class="pagination justify-content-end mb-0">
+              <li class="page-item disabled">
+                <a class="page-link" href="javascript:void(0)" tabindex="-1">
+                  <i class="fas fa-angle-left"></i>
+                  <span class="sr-only">Previous</span>
+                </a>
+              </li>
+              <li class="page-item active">
+                <a class="page-link" href="javascript:void(0)">1</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="javascript:void(0)">2 <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="javascript:void(0)">
+                  <i class="fas fa-angle-right"></i>
+                  <span class="sr-only">Next</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="isLoading" class="loader">
+  <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions" (animationCreated)="loadingAnimationCreated($event)"></ng-lottie>
+</div>
+<ngx-alerts></ngx-alerts>

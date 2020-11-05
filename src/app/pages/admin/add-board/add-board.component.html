@@ -1,0 +1,144 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" >
+  <!-- Mask -->
+  <span class="mask bg-gradient-default opacity-8"></span>
+  <!-- Header container -->
+
+</div>
+<div class="container-fluid mt--7">
+  <div class="row">
+
+    <div class="col-xl-12 order-xl-1">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">Add a Board</h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <form (submit) = "addBoard(boardForm)" #boardForm = "ngForm" >
+            <h6 class="heading-small text-muted mb-4">User information</h6>
+            <div class="pl-lg-4">
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" >Name</label>
+                    <input  name="title" [ngModel]="isEdit ? boardToUpdate.title : ''" class="form-control form-control-alternative" placeholder="Board name" value="" type="text">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label">Province</label>
+                    <select name="province" [ngModel]="isEdit ? boardToUpdate.province : ''" class="form-control form-control-alternative">
+                      <option value="" disabled>Choose Province</option>
+                      <option value="Punjab" >Punjab</option>
+                      <option value="KPK" >KPK</option>
+                      <option value="Sindh" >Sindh</option>
+                      <option value="Balochistan" >Balochistan</option>
+                      <option value="AJK" >AJK</option>
+                      <option value="Federal" >Federal</option>
+                   </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-control-label">City</label>
+                    <input name="city" [ngModel]="isEdit ? boardToUpdate.city : ''"  class="form-control form-control-alternative" placeholder="City" value="" type="text">
+                  </div>
+                </div>
+                <div class="col-lg-6" >
+                    <div class="form-group">
+                        <label class="form-control-label" >Select Exam Types</label>
+                          <ng-multiselect-dropdown
+                          class = "form-control form-control-alternative custom-multiselct"
+                          [placeholder]="'Select Exam Types'"
+                          [data]="examTypes"
+                          [(ngModel)]="selectedExamTypes"
+                          [settings]="examTypesSettings"
+                          [ngModelOptions]="{standalone: true}"
+                        >
+                        </ng-multiselect-dropdown>
+
+                      </div>
+                </div>
+
+              </div>
+              <div class="row">
+                  <div class="col-lg-6">
+                      <div class="form-group" >
+                          <label class="form-control-label" >Select Classes</label>
+                          <ng-multiselect-dropdown
+                          class = "form-control form-control-alternative"
+                          style="border-color: transparent;"
+                          [placeholder]="'Select Classes'"
+                          [data]="classes"
+                          [(ngModel)] = "selectedClasses"
+                          [settings]="classesSettings"
+                          [ngModelOptions]="{standalone: true}"
+                        >
+                        </ng-multiselect-dropdown>
+                      </div>
+                    </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" >Type</label>
+                    <select name="type" [ngModel]="isEdit ? boardToUpdate.type : ''" class="form-control form-control-alternative">
+                      <option value="" disabled>Select Type</option>
+                      <option value="1" >Board</option>
+                      <option value="2" >University</option>
+                    </select>
+                  </div>
+                </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="form-control-label" >Web URL</label>
+                          <input name="webUrl" [ngModel]="isEdit ? boardToUpdate.webUrl : ''"  class="form-control form-control-alternative" placeholder="Web URL" value="" type="text">
+                        </div>
+                      </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="form-control-label" >Result URL</label>
+                        <input name="resultUrl" [ngModel]="isEdit ? boardToUpdate.resultUrl : ''"  class="form-control form-control-alternative" placeholder="Result URL" value="" type="text">
+                      </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                      <div class="form-group">
+                        <label class="form-control-label" >Tags</label>
+                          <form (submit) = "addTag(tagForm)" #tagForm = "ngForm" >
+                            <input name="tagTitle" ngModel  class="form-control form-control-alternative" placeholder="Tags" value="" type="text">
+                            <button class="btn btn-sm btn-primary" style="margin-top: 10px;" type="submit"  >Add</button>
+                          </form>
+                      </div>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-8" *ngFor="let tag of tags">
+                    <span class="badge badge-primary" (click)="removeTag(tag)" >{{tag}}</span>
+                  </div>
+                </div>
+
+            </div>
+            <div class="text-center">
+              <button *ngIf="!isEdit" type="button" class="btn btn-primary my-4" type="submit">Add Board</button>
+              <button *ngIf="isEdit" type="button" class="btn btn-primary my-4" type="submit">Update</button>
+              <button type="button" class="btn btn-primary my-4" (click)="cancel()">Cancel</button>
+            </div>
+            <div *ngIf="isLoading" class="loader">
+              <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions" (animationCreated)="loadingAnimationCreated($event)"></ng-lottie>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ngx-alerts></ngx-alerts>

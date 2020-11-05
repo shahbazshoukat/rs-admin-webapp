@@ -1,1 +1,1 @@
-# rs-admin-webapp
+# ResultSquare Web app
