@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ClassService } from 'src/app/services/class.service';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AnimationOptions } from 'ngx-lottie';
 import { AlertService } from 'ngx-alerts';
 import { takeWhile } from 'rxjs/operators';
@@ -54,7 +54,7 @@ export class AddClassComponent implements OnInit, OnDestroy {
 
   cancel() {
 
-    this.router.navigate(['/rs-admin/news']);
+    this.router.navigate(['/rs-admin/classes']);
 
   }
 

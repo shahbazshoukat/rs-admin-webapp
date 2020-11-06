@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BoardService } from '@app/services';
 import { Router } from '@angular/router';
 import { AnimationOptions } from 'ngx-lottie';
-import { AnimationItem } from 'lottie-web';
 import { AlertService } from 'ngx-alerts';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-boards',
@@ -12,41 +12,56 @@ import { AlertService } from 'ngx-alerts';
 })
 export class BoardsComponent implements OnInit, OnDestroy {
 
-
-  isLoading = true;
   boards = [];
-  filteredBoards = [];
-  boardSub: any;
-  removeBoardSub: any;
+  alive = true;
+  isLoading = true;
+  boardSearchQuery = '';
+
   loadingAnimOptions: AnimationOptions = {
-    path: '/assets/lib/loading-spinner.json'
+    path: '/assets/lib/loading-spinner.json',
+    loop: true,
+    autoplay: true
   };
 
-  loadingAnim: AnimationItem;
-
-  constructor(private boardService: BoardService, private router: Router, private alertService: AlertService ) { }
+  constructor(private router: Router,
+              private boardService: BoardService,
+              private alertService: AlertService ) { }
 
   ngOnInit() {
+
     this.isLoading = true;
-    this.boardSub = this.boardService.getAllBoardes().subscribe(
+
+    this.boardService.getAllBoards()
+        .pipe(takeWhile(this.isAlive))
+        .subscribe(
       response => {
-      if (response.success && response.data) {
-        this.boards = response.data;
-        this.filteredBoards = this.boards;
+
+        if (response.success && response.data) {
+
+          this.boards = response.data;
+
+        }
+
         this.isLoading = false;
-      }
+
     },
     error => {
+
       this.isLoading = false;
+
       if (error && error.error && error.error.message) {
+
         this.alertService.danger(error.error.message);
+
       }
+
     });
+
   }
 
-  loadingAnimationCreated(animationItem: AnimationItem): void {
+  isAlive = () => {
 
-    this.loadingAnim = animationItem;
+    return this.alive;
 
   }
 
@@ -54,7 +69,7 @@ export class BoardsComponent implements OnInit, OnDestroy {
 
     const confirmed = confirm('Are you sure you want to remove?');
 
-    if (!confirmed) {
+    if (!confirmed || !board) {
 
       return;
 
@@ -69,38 +84,40 @@ export class BoardsComponent implements OnInit, OnDestroy {
     }
 
     this.isLoading = true;
-    this.removeBoardSub = this.boardService.deleteBoard(board._id).subscribe(
+
+    this.boardService.deleteBoard(board._id)
+        .pipe(takeWhile(this.isAlive))
+        .subscribe(
       response => {
-      if (response.success && response.message && response.data) {
-       this.boards.forEach((brd, index) => {
-         if (brd._id === board._id) {
-            this.boards.splice(index, 1);
-         }
-       });
-       this.isLoading = false;
-       this.alertService.success(response.message);
-      }
+
+        if (response.success && response.message && response.data) {
+
+         this.boards.forEach((brd, index) => {
+
+           if (brd._id === board._id) {
+
+              this.boards.splice(index, 1);
+
+           }
+
+         });
+
+         this.alertService.success(response.message);
+
+        }
+
+        this.isLoading = false;
+
     },
     error => {
+
       this.isLoading = false;
+
       if (error && error.error && error.error.message) {
+
         this.alertService.danger(error.error.message);
+
       }
-    });
-  }
-
-  editBoard(boardId: any) {
-    this.router.navigate(['/rs-admin/add-board', {boardId: boardId}]);
-  }
-
-  searchBoards(event) {
-
-    const searchQuery = event.target.value.toLowerCase();
-
-    this.filteredBoards = this.boards.filter(board => {
-
-      return board.title.toLowerCase().includes(searchQuery) || board.province.toLowerCase().includes(searchQuery)
-        || board.city.toLowerCase().includes(searchQuery);
 
     });
 
@@ -108,8 +125,7 @@ export class BoardsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
 
-    this.boardSub && this.boardSub.unsubscribe();
-    this.removeBoardSub && this.removeBoardSub.unsubscribe();
+    this.alive = false;
 
   }
 

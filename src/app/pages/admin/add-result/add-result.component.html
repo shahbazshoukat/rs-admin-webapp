@@ -4,7 +4,7 @@
   <!-- Header container -->
 
 </div>
-<div class="container-fluid mt--7">
+<div class="container-fluid mt--9">
   <div class="row">
 
     <div class="col-xl-12 order-xl-1">
@@ -12,13 +12,12 @@
         <div class="card-header bg-white border-0">
           <div class="row align-items-center">
             <div class="col-8">
-              <h3 class="mb-0">Add a Result</h3>
+              <h3 class="mb-0">{{resultId ? 'Edit' : 'Add'}} a Result</h3>
             </div>
           </div>
         </div>
         <div class="card-body">
-          <form (submit) = "addResult(resultForm)" #resultForm="ngForm" >
-            <h6 class="heading-small text-muted mb-4">User information</h6>
+          <form (submit) = "submitForm(resultForm)" #resultForm="ngForm" >
             <div class="pl-lg-4">
               <div class="row" >
                   <div class="col-lg-4">
@@ -26,7 +25,7 @@
                         <label class="form-control-label" >Announce Status</label>
                         <span class="clearfix"></span>
                         <label class="custom-toggle">
-                            <input name="status" [ngModel]=" isEdit ? resultToUpdate.status : ''" type="checkbox" >
+                            <input name="status" [ngModel]="resultId && resultToUpdate ? resultToUpdate.status : ''" type="checkbox" >
                             <span class="custom-toggle-slider rounded-circle"></span>
                           </label>
                       </div>
@@ -36,7 +35,7 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label">Class</label>
-                    <select  name="clas" [ngModel]=" isEdit ? resultToUpdate.section : ''" class="form-control form-control-alternative">
+                    <select  name="clas" [ngModel]=" resultId && resultToUpdate ? resultToUpdate.section : ''" class="form-control form-control-alternative">
                       <option *ngFor="let cls of classes" value="{{cls._id}}" >{{cls.title}}</option>
                    </select>
                   </div>
@@ -44,7 +43,7 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" >Board</label>
-                    <select (change) = "changeBoard($event)"  name="board" [ngModel]=" isEdit ? resultToUpdate.board : ''" class="form-control form-control-alternative">
+                    <select (change) = "changeBoard($event)"  name="board" [ngModel]=" resultId && resultToUpdate ? resultToUpdate.board : ''" class="form-control form-control-alternative">
                       <option *ngFor="let board of boards" value="{{board._id}}" >{{board.title}}</option>
                    </select>
                   </div>
@@ -54,7 +53,7 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label">Year</label>
-                    <select name="year" [ngModel]=" isEdit ? resultToUpdate.year : ''" class="form-control form-control-alternative">
+                    <select name="year" [ngModel]=" resultId && resultToUpdate ? resultToUpdate.year : ''" class="form-control form-control-alternative">
                       <option value="" disabled>Select Year</option>
                       <option value="2023" >2023</option>
                       <option value="2022" >2022</option>
@@ -79,7 +78,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                     </div>
-                    <input name="announceDate" [ngModel]=" isEdit ? resultToUpdate.annDate : ''" class="form-control datepicker" placeholder="Select date" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" type="text"/>
+                    <input name="announceDate" [ngModel]=" resultId && resultToUpdate ? resultToUpdate.annDate : ''" class="form-control datepicker" placeholder="Select date" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" type="text"/>
                   </div>
                 </div>
               </div>
@@ -87,7 +86,7 @@
                   <div class="col-lg-6">
                     <div class="form-group">
                       <label class="form-control-label" >Exam Type</label>
-                      <select name="examType" [ngModel]=" isEdit ? resultToUpdate.examType : ''" class="form-control form-control-alternative">
+                      <select name="examType" [ngModel]=" resultId && resultToUpdate ? resultToUpdate.examType : ''" class="form-control form-control-alternative">
                         <option value="" disabled>Select Exam Type</option>
                         <option value="0" >Annual</option>
                         <option value="1" >Supply</option>
@@ -102,7 +101,7 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label class="form-control-label" >Result URL</label>
-                        <input *ngIf="!selectedBoard" name="resultUrl" [ngModel]=" isEdit ? resultToUpdate.resultUrl : ''"  class="form-control form-control-alternative" placeholder="Result URL" value="" type="text">
+                        <input *ngIf="!selectedBoard" name="resultUrl" [ngModel]=" resultId && resultToUpdate ? resultToUpdate.resultUrl : ''"  class="form-control form-control-alternative" placeholder="Result URL" value="" type="text">
                         <input *ngIf="selectedBoard" name="resultUrl" [ngModel]=" selectedBoard.resultUrl ? selectedBoard.resultUrl : ''"  class="form-control form-control-alternative" placeholder="Result URL" value="" type="text">
                       </div>
                     </div>
@@ -125,12 +124,12 @@
                 </div>
             </div>
             <div class="text-center">
-              <button *ngIf="!isEdit" type="button" class="btn btn-primary my-4" type="submit">Add Result</button>
-              <button *ngIf="isEdit" type="button" class="btn btn-primary my-4" type="submit">Update</button>
+              <button *ngIf="!resultId" type="button" class="btn btn-primary my-4" type="submit">Add Result</button>
+              <button *ngIf="resultId" type="button" class="btn btn-primary my-4" type="submit">Update</button>
               <button type="button" class="btn btn-primary my-4" (click)="cancel()">Cancel</button>
             </div>
             <div *ngIf="isLoading" class="loader">
-              <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions" (animationCreated)="loadingAnimationCreated($event)"></ng-lottie>
+              <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions"></ng-lottie>
             </div>
           </form>
         </div>

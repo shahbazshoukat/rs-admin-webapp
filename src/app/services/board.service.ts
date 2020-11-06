@@ -37,16 +37,12 @@ export class BoardService {
     return this.http.post<{success: boolean, message: string, data: any}>('/api/board', boardData);
   }
 
-  getAllBoardes(): Observable<any> {
+  getAllBoards(): Observable<any> {
     return this.http.get<{success: boolean, message: string, data: any}>( '/api/boards');
   }
 
   getBoardById(boardId: string): Observable<any> {
     return this.http.get<{success: boolean, message: string, data: any}>('/api/board/' + boardId);
-  }
-
-  getBoardByKey(boardKey: string): Observable<any> {
-    return this.http.get<{success: boolean, message: string, data: any}>('/api/board/key/' + boardKey);
   }
 
   getBoardBySectionTitle(sectionTitle: string): Observable<any> {

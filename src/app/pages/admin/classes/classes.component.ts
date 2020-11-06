@@ -98,6 +98,14 @@ export class ClassesComponent implements OnInit, OnDestroy {
 
     }
 
+    const classTitle = prompt('Enter name of class to remove');
+
+    if (classTitle !== classToRemove.title) {
+
+      return;
+
+    }
+
     this.isLoading = true;
 
     this.classService.deleteClass(classToRemove._id).pipe(takeWhile(this.isAlive))

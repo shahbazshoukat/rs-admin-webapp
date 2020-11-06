@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.usersService.setUserName(this.user.name);
           }
           this.isLoading = false;
-          this.router.navigate(['/rs-admin/dashboard']);
+          this.router.navigate(['/rs-admin/boards']);
         }
       },
       error => {

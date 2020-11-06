@@ -6,7 +6,7 @@
   </div>
 </div>
 <!-- Page content -->
-<div class="container-fluid mt--7">
+<div class="container-fluid mt--9">
   <!-- Table -->
   <div class="row">
     <div class="col">
@@ -17,42 +17,42 @@
               <h3 class="mb-0">Boards</h3>
             </div>
             <div class="col-4 text-left">
-              <input name="search" (input)="searchBoards($event)"  class="form-control form-control-alternative border-light border shadow-none" placeholder="Search" value="" type="text">
+              <input name="search" [(ngModel)]="boardSearchQuery" class="form-control form-control-alternative border-light border shadow-none" placeholder="Search" value="" type="text">
             </div>
             <div class="col-4 text-right">
               <a routerLinkActive="active" [routerLink]="['/rs-admin/add-board']" class="btn btn-sm btn-primary">Add</a>
             </div>
           </div>
         </div>
-        <div class="table-responsive">
+        <div class="table-responsive tableWrap">
           <table class="table align-items-center table-flush">
             <thead class="thead-light">
               <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Province</th>
-                <th scope="col">City</th>
+                <!-- <th scope="col">City</th> -->
                 <th scope="col">Views</th>
                 <th scope="col">Web URL</th>
                 <th scope="col">Result URL</th>
                 <th scope="col">Results</th>
-                <th scope="col">Comments</th>
+                <!-- <th scope="col">Comments</th> -->
                 <th scope="col"></th>
               </tr>
             </thead>
             <div *ngIf="isLoading" class="loader">
-              <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions" (animationCreated)="loadingAnimationCreated($event)"></ng-lottie>
+              <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions"></ng-lottie>
             </div>
-            <tbody *ngIf="!isLoading">
-              <tr *ngFor="let board of filteredBoards">
+            <tbody *ngIf="boards">
+              <tr *ngFor="let board of boards | search: 'title,province,webUrl,resultUrl': boardSearchQuery">
                 <td>
                   {{board.title}}
                 </td>
                 <td>
                   {{board.province}}
                 </td>
-                <td>
+                <!-- <td>
                   {{board.city}}
-                </td>
+                </td> -->
                 <td>
                   {{board.views}}
                 </td>
@@ -63,14 +63,14 @@
                   <a href="{{board.resultUrl}}" >Result</a>
                 </td>
                 <td>
-                  <a class="btn btn-primary btn-sm" [routerLink]="['/rs-admin/results', board.key]">Results</a>
+                  <a class="btn btn-primary btn-sm" [routerLink]="['/rs-admin/results', board?.key]">Results</a>
                 </td>
-                <td>
-                  <a class="btn btn-primary btn-sm" [routerLink]="['/rs-admin/comments/board/', board._id]" >Comments</a>
-                </td>
+                <!-- <td>
+                  <a class="btn btn-primary btn-sm" [routerLink]="['/rs-admin/comments/board/', board._id]">Comments</a>
+                </td> -->
                 <td class="text-right">
                   <div ngbDropdown   placement="bottom-right">
-                    <a class="btn btn-sm btn-icon-only text-light" (click)="editBoard(board._id)">
+                    <a class="btn btn-sm btn-icon-only text-light" [routerLink]="['/rs-admin/edit-board/', board._id]">
                       <i class="fas fa-edit"></i>
                     </a>
                     <a class="btn btn-sm btn-icon-only text-light" (click)="removeBoard(board)" >
@@ -83,29 +83,6 @@
           </table>
         </div>
         <div class="card-footer py-4">
-          <nav aria-label="...">
-            <ul class="pagination justify-content-end mb-0">
-              <li class="page-item disabled">
-                <a class="page-link" href="javascript:void(0)" tabindex="-1">
-                  <i class="fas fa-angle-left"></i>
-                  <span class="sr-only">Previous</span>
-                </a>
-              </li>
-              <li class="page-item active">
-                <a class="page-link" href="javascript:void(0)">1</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="javascript:void(0)">2 <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
-              <li class="page-item">
-                <a class="page-link" href="javascript:void(0)">
-                  <i class="fas fa-angle-right"></i>
-                  <span class="sr-only">Next</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
         </div>
       </div>
     </div>

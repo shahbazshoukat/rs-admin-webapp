@@ -25,7 +25,7 @@ export class ClassService {
   }
 
   deleteClass(classId: string) {
-    return this.http.delete<{success: boolean, message: string, data: any}>(`/api/section/${classId}/delete` + classId);
+    return this.http.delete<{success: boolean, message: string, data: any}>(`/api/section/${classId}/delete`);
   }
 
 }

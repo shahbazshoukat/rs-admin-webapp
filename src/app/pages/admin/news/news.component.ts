@@ -15,7 +15,6 @@ export class NewsComponent implements OnInit, OnDestroy {
   news = [];
   alive = true;
   isLoading = true;
-  filteredNews = [];
   isSearching = false;
   newsSearchQuery = '';
 
@@ -39,8 +38,6 @@ export class NewsComponent implements OnInit, OnDestroy {
           if (response.success && response.data) {
 
             this.news = response.data;
-
-            this.filteredNews = this.news;
 
           }
 
@@ -113,20 +110,6 @@ export class NewsComponent implements OnInit, OnDestroy {
           }
 
         });
-
-  }
-
-  searchNews(event) {
-
-    this.isSearching = true;
-
-    const searchQuery = event.target.value.toLowerCase();
-
-    this.filteredNews = this.news.filter(cls => {
-
-      return cls.title.toLowerCase().includes(searchQuery) || cls.type.toLowerCase().includes(searchQuery);
-
-    });
 
   }
 

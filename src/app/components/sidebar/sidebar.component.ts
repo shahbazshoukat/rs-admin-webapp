@@ -10,7 +10,7 @@ declare interface RouteInfo {
     class: string;
 }
 export const ROUTES: RouteInfo[] = [
-    { path: 'dashboard', title: 'Dashboard',  icon: 'ni-tv-2 text-primary', class: '' },
+    // { path: 'dashboard', title: 'Dashboard',  icon: 'ni-tv-2 text-primary', class: '' },
     // { path: 'results', title: 'Results',  icon: 'ni-planet text-blue', class: '' },
     { path: 'boards', title: 'Boards',  icon: 'ni-pin-3 text-orange', class: '' },
     { path: 'classes', title: 'Classes',  icon: 'ni-single-02 text-yellow', class: '' },
