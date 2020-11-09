@@ -18,3 +18,8 @@ export enum CLASS_TYPE {
   CLASS = '0',
   TEST = '1'
 }
+
+export enum USER_ROLE {
+  ADMIN = 'ADMIN',
+  USER = 'USER'
+}

@@ -69,7 +69,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       this.passwordValid = true;
     }
     if (this.nameValid && this.emailValid && this.passwordValid) {
-      this.addUserSubscription$ = this.usersService.addUser(
+      this.addUserSubscription$ = this.usersService.signup(
         form.value.name,
         form.value.email,
         form.value.password

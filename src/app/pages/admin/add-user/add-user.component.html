@@ -1,0 +1,64 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" >
+    <!-- Mask -->
+    <span class="mask bg-gradient-default opacity-8"></span>
+    <!-- Header container -->
+
+</div>
+<div class="container-fluid mt--9">
+    <div class="row">
+
+        <div class="col-xl-12 order-xl-1">
+            <div class="card bg-secondary shadow">
+                <div class="card-header bg-white border-0">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h3 class="mb-0">{{userId ? 'Edit' : 'Add'}} a User</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form (submit) ="submitForm(userForm)" #userForm = "ngForm" >
+                        <div class="pl-lg-4">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-title">Name</label>
+                                        <input name="name" [ngModel] = "userId && userToEdit ? userToEdit?.name : '' "
+                                               id="input-title" class="form-control form-control-alternative" placeholder="User name" value="" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-email">Email</label>
+                                        <input name="email" [ngModel] = "userId && userToEdit ? userToEdit?.email : '' "
+                                                  id="input-email" class="form-control form-control-alternative" placeholder="User email" value="" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="!userId">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-password">Password</label>
+                                        <input name="password" [ngModel] = "userId && userToEdit ? userToEdit?.password : '' "
+                                                  id="input-password" class="form-control form-control-alternative" placeholder="User password" value="" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button *ngIf="!userId" type="button" class="btn btn-primary my-4" type="submit">Add User</button>
+                            <button *ngIf="userId" type="button" class="btn btn-primary my-4" type="submit">Update</button>
+                            <button type="button" class="btn btn-primary my-4" (click)="cancel()">Cancel</button>
+                        </div>
+                        <div *ngIf="isLoading" class="loader">
+                            <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions"></ng-lottie>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ngx-alerts></ngx-alerts>

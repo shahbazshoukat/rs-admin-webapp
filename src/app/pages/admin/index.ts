@@ -10,3 +10,5 @@ export * from './register/register.component';
 export * from './results/results.component';
 export * from './news/news.component';
 export * from './add-news/add-news.component';
+export * from './users/users.component';
+export * from './add-user/add-user.component';

@@ -1,0 +1,67 @@
+<div class="header bg-gradient-default pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+        <div class="header-body">
+
+        </div>
+    </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--9">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <div class="row align-items-center">
+                        <div class="col-4">
+                            <h3 class="mb-0">Users</h3>
+                        </div>
+                        <div class="col-4 text-left">
+                            <input name="search" [(ngModel)]="usersSearchQuery" class="form-control form-control-alternative border-light border shadow-none" placeholder="Search" value="" type="text">
+                        </div>
+                        <div class="col-4 text-right">
+                            <a [routerLink] = "['/rs-admin/add-user']" class="btn btn-sm btn-primary">Add</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive tableWrap">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <div *ngIf="isLoading" class="loader">
+                            <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions"></ng-lottie>
+                        </div>
+                        <tbody *ngIf="users">
+                        <tr *ngFor = "let nws of users | search: 'title,description': usersSearchQuery"  >
+                            <td>
+                                {{nws?.name}}
+                            </td>
+                            <td>
+                                {{nws?.email}}
+                            </td>
+                            <td class="text-right">
+                                <div ngbDropdown   placement="bottom-right">
+                                    <a class="btn btn-sm btn-icon-only text-light" [routerLink]="['/rs-admin/edit-user/', nws?._id]">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-icon-only text-light" (click)="removeUser(nws)" >
+                                        <i style="font-size: large;" class="ni ni-fat-remove"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer py-4">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ngx-alerts></ngx-alerts>

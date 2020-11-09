@@ -2,16 +2,16 @@ import { Routes } from '@angular/router';
 import { AuthGuard } from '@app/guards/auth.guard';
 
 import {
-  DashboardComponent,
-  AddResultComponent,
-  AddBoardComponent,
-  AddClassComponent,
-  ResultsComponent,
-  BoardsComponent,
-  ClassesComponent,
-  CommentsComponent,
-  NewsComponent,
-  AddNewsComponent
+    DashboardComponent,
+    AddResultComponent,
+    AddBoardComponent,
+    AddClassComponent,
+    ResultsComponent,
+    BoardsComponent,
+    ClassesComponent,
+    CommentsComponent,
+    NewsComponent,
+    AddNewsComponent, AddUserComponent, UsersComponent
 } from '@app/pages/admin';
 
 export const AdminLayoutRoutes: Routes = [
@@ -28,6 +28,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'news', component: NewsComponent, canActivate: [AuthGuard] },
     { path: 'add-news', component: AddNewsComponent, canActivate: [AuthGuard] },
     { path: 'edit-news/:newsId', component: AddNewsComponent, canActivate: [AuthGuard] },
+    { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
+    { path: 'add-user', component: AddUserComponent, canActivate: [AuthGuard] },
+    { path: 'edit-user/:userId', component: AddUserComponent, canActivate: [AuthGuard] },
     { path: 'comments/board/:boardId', component: CommentsComponent, canActivate: [AuthGuard] },
     { path: 'comments/result/:resultId', component: CommentsComponent, canActivate: [AuthGuard] }
 ];

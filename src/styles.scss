@@ -20,3 +20,19 @@
 .tableWrap {
   max-height: 500px;
 }
+
+.CP {
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .main-content-wrapper {
+    margin-left: 250px !important;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .main-content-wrapper {
+    margin-left: 0px !important;
+  }
+}

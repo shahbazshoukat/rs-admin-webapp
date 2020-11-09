@@ -16,7 +16,9 @@ import {
   ClassesComponent,
   CommentsComponent,
   NewsComponent,
-  AddNewsComponent
+  AddNewsComponent,
+  UsersComponent,
+  AddUserComponent
 } from '@app/pages/admin';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -50,8 +52,10 @@ export function playerFactory() {
     CommentsComponent,
     NewsComponent,
     AddNewsComponent,
-      SafePipe,
-      SearchPipe
+    UsersComponent,
+    AddUserComponent,
+    SafePipe,
+    SearchPipe
   ],
   providers: [
     AlertService
