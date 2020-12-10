@@ -43,9 +43,6 @@
                             <button *ngIf="newsId" type="button" class="btn btn-primary my-4" type="submit">Update</button>
                             <button type="button" class="btn btn-primary my-4" (click)="cancel()">Cancel</button>
                         </div>
-                        <div *ngIf="isLoading" class="loader">
-                            <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions"></ng-lottie>
-                        </div>
                     </form>
                 </div>
             </div>

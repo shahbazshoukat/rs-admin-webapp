@@ -33,9 +33,6 @@
               <th scope="col"></th>
             </tr>
             </thead>
-            <div *ngIf="isLoading" class="loader">
-              <ng-lottie width="120px" height="120px" [options]="loadingAnimOptions"></ng-lottie>
-            </div>
             <tbody *ngIf="classes">
             <tr *ngFor = "let cls of classes | search: 'title,classType': classSearchQuery"  >
               <td>
