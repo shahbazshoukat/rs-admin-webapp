@@ -22,6 +22,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'results/:boardKey', component: ResultsComponent, canActivate: [AuthGuard] },
     { path: 'add-result/:boardKey', component: AddResultComponent, canActivate: [AuthGuard] },
     { path: 'edit-result/:resultId/board/:boardKey', component: AddResultComponent, canActivate: [AuthGuard] },
+    { path: 'copy-result/:copyResultId/board/:boardKey', component: AddResultComponent, canActivate: [AuthGuard] },
     { path: 'classes', component: ClassesComponent, canActivate: [AuthGuard] },
     { path: 'add-class', component: AddClassComponent, canActivate: [AuthGuard] },
     { path: 'edit-class/:classId', component: AddClassComponent, canActivate: [AuthGuard] },

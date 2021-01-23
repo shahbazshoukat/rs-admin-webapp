@@ -6,9 +6,9 @@ export class NewsService {
 
     constructor (private http: HttpClient) {}
 
-    addNews(title: string, description: string) {
+    addNews(title: string, link: string, description: string) {
 
-        const newsData: any = { title: title, description: description};
+        const newsData: any = { title: title, link: link, description: description};
 
         return this.http.post<{success: boolean, message: string, data: any}>('/api/news', newsData);
 
@@ -26,9 +26,9 @@ export class NewsService {
 
     }
 
-    updateNews( newsId: string, title: string, description: string ) {
+    updateNews( newsId: string, title: string, link: string, description: string ) {
 
-        const update = { title: title, description: description };
+        const update = { title: title, link: link, description: description };
 
         return this.http.put<{success: boolean, message: string, data: any}>(`/api/news/${newsId}/update`, update);
 

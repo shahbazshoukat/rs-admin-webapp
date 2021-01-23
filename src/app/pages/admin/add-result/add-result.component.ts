@@ -22,10 +22,10 @@ export class AddResultComponent implements OnInit, OnDestroy {
   isLoading = false;
   selectedBoard: any;
   tags: string[] = [];
+  copyResultId: string;
   selectedBoardKey: any;
   params: string[] = [];
   resultToUpdate = null;
-  resultToUpdateId = null;
 
   loadingAnimOptions: AnimationOptions = {
     path: '/assets/lib/loading-spinner.json',
@@ -46,9 +46,15 @@ export class AddResultComponent implements OnInit, OnDestroy {
 
         this.resultId = params.resultId;
 
+        this.copyResultId = params.copyResultId;
+
         if (this.resultId) {
 
-          this.getResultById();
+          this.getResultById(this.resultId);
+
+        } else if (this.copyResultId) {
+
+          this.getResultById(this.copyResultId);
 
         }
 
@@ -74,9 +80,9 @@ export class AddResultComponent implements OnInit, OnDestroy {
 
   }
 
-  getResultById() {
+  getResultById(resultId) {
 
-    this.resultService.getResultById(this.resultId)
+    this.resultService.getResultById(resultId)
         .pipe(takeWhile(this.isAlive))
         .subscribe(
         response => {
@@ -212,7 +218,7 @@ export class AddResultComponent implements OnInit, OnDestroy {
 
   addResult(form: NgForm) {
 
-    if (!form || form.invalid) {
+    if (!form || form.invalid || !form.value) {
 
       return;
 
@@ -231,7 +237,7 @@ export class AddResultComponent implements OnInit, OnDestroy {
     this.isLoading = true;
 
     this.resultService.addResult(null, form.value.status, form.value.clas, form.value.board, form.value.year, annDate,
-        form.value.examType, form.value.resultUrl, this.tags )
+        form.value.examType, form.value.resultUrl, form.value.description, this.tags, form.value.showAnnouncedDate)
         .pipe(takeWhile(this.isAlive))
         .subscribe(
         response => {
@@ -269,7 +275,7 @@ export class AddResultComponent implements OnInit, OnDestroy {
 
   updateResult(form: NgForm) {
 
-    if (!form || form.invalid) {
+    if (!form || form.invalid || !form.value) {
 
       return;
 
@@ -288,7 +294,7 @@ export class AddResultComponent implements OnInit, OnDestroy {
     this.isLoading = true;
 
     this.resultService.updateResult(this.resultId, form.value.status, form.value.clas, form.value.board, form.value.year, annDate,
-        form.value.examType, form.value.resultUrl, this.tags )
+        form.value.examType, form.value.resultUrl, form.value.description, this.tags, form.value.showAnnouncedDate)
         .pipe(takeWhile(this.isAlive))
         .subscribe(
         response => {

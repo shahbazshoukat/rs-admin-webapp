@@ -2,6 +2,7 @@ export interface Board {
   _id: string;
   key: string;
   title: string;
+  description: string;
   province: string;
   city: string;
   examTypes: object[];

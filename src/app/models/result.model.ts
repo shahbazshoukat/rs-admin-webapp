@@ -7,5 +7,7 @@ export interface Result {
   announceDate: string;
   examType: number;
   resultUrl: string;
+  description: string;
   tags: string[];
+  showAnnouncedDate: boolean;
 }

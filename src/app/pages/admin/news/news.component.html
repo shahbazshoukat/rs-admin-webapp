@@ -29,6 +29,7 @@
                         <thead class="thead-light">
                         <tr>
                             <th scope="col">Name</th>
+                            <th>Link</th>
                             <th scope="col">Description</th>
                             <th scope="col"></th>
                         </tr>
@@ -37,6 +38,9 @@
                         <tr *ngFor = "let nws of news | search: 'title,description': newsSearchQuery"  >
                             <td>
                                 {{nws?.title}}
+                            </td>
+                            <td>
+                                <a [href]="nws?.link" target="_blank">Link</a>
                             </td>
                             <td>
                                 {{nws?.description}}

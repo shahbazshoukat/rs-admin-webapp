@@ -12,7 +12,9 @@
         <div class="card-header bg-white border-0">
           <div class="row align-items-center">
             <div class="col-8">
-              <h3 class="mb-0">{{resultId ? 'Edit' : 'Add'}} a Result</h3>
+              <h3 class="mb-0" *ngIf="!resultId && !copyResultId">Add a Result</h3>
+              <h3 class="mb-0" *ngIf="resultId">Edit a Result</h3>
+              <h3 class="mb-0" *ngIf="copyResultId">Copy a Result</h3>
             </div>
           </div>
         </div>
@@ -25,17 +27,27 @@
                         <label class="form-control-label" >Announce Status</label>
                         <span class="clearfix"></span>
                         <label class="custom-toggle">
-                            <input name="status" [ngModel]="resultId && resultToUpdate ? resultToUpdate.status : ''" type="checkbox" >
+                            <input name="status" [ngModel]="resultToUpdate ? resultToUpdate.status : ''" type="checkbox" >
                             <span class="custom-toggle-slider rounded-circle"></span>
                           </label>
                       </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label class="form-control-label" >Show Announced Date</label>
+                      <span class="clearfix"></span>
+                      <label class="custom-toggle">
+                        <input name="showAnnouncedDate" [ngModel]="resultToUpdate ? resultToUpdate.showAnnouncedDate : ''" type="checkbox" >
+                        <span class="custom-toggle-slider rounded-circle"></span>
+                      </label>
                     </div>
+                  </div>
               </div>
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label">Class</label>
-                    <select  name="clas" [ngModel]=" resultId && resultToUpdate ? resultToUpdate.section : ''" class="form-control form-control-alternative">
+                    <select  name="clas" [ngModel]="resultToUpdate ? resultToUpdate.section : ''" class="form-control form-control-alternative">
                       <option *ngFor="let cls of classes" value="{{cls._id}}" >{{cls.title}}</option>
                    </select>
                   </div>
@@ -43,7 +55,7 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" >Board</label>
-                    <select (change) = "changeBoard($event)"  name="board" [ngModel]=" resultId && resultToUpdate ? resultToUpdate.board : ''" class="form-control form-control-alternative">
+                    <select (change) = "changeBoard($event)"  name="board" [ngModel]="resultToUpdate ? resultToUpdate.board : ''" class="form-control form-control-alternative">
                       <option *ngFor="let board of boards" value="{{board._id}}" >{{board.title}}</option>
                    </select>
                   </div>
@@ -53,7 +65,7 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label">Year</label>
-                    <select name="year" [ngModel]=" resultId && resultToUpdate ? resultToUpdate.year : ''" class="form-control form-control-alternative">
+                    <select name="year" [ngModel]="resultToUpdate ? resultToUpdate.year : ''" class="form-control form-control-alternative">
                       <option value="" disabled>Select Year</option>
                       <option value="2023" >2023</option>
                       <option value="2022" >2022</option>
@@ -78,7 +90,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                     </div>
-                    <input name="announceDate" [ngModel]=" resultId && resultToUpdate ? resultToUpdate.annDate : ''" class="form-control datepicker" placeholder="Select date" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" type="text"/>
+                    <input name="announceDate" [ngModel]="resultToUpdate ? resultToUpdate.annDate : ''" class="form-control datepicker" placeholder="Select date" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" type="text"/>
                   </div>
                 </div>
               </div>
@@ -86,7 +98,7 @@
                   <div class="col-lg-6">
                     <div class="form-group">
                       <label class="form-control-label" >Exam Type</label>
-                      <select name="examType" [ngModel]=" resultId && resultToUpdate ? resultToUpdate.examType : ''" class="form-control form-control-alternative">
+                      <select name="examType" [ngModel]="resultToUpdate ? resultToUpdate.examType : ''" class="form-control form-control-alternative">
                         <option value="" disabled>Select Exam Type</option>
                         <option value="0" >Annual</option>
                         <option value="1" >Supply</option>
@@ -101,11 +113,20 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label class="form-control-label" >Result URL</label>
-                        <input *ngIf="!selectedBoard" name="resultUrl" [ngModel]=" resultId && resultToUpdate ? resultToUpdate.resultUrl : ''"  class="form-control form-control-alternative" placeholder="Result URL" value="" type="text">
-                        <input *ngIf="selectedBoard" name="resultUrl" [ngModel]=" selectedBoard.resultUrl ? selectedBoard.resultUrl : ''"  class="form-control form-control-alternative" placeholder="Result URL" value="" type="text">
+                        <input *ngIf="!selectedBoard" name="resultUrl" [ngModel]="resultToUpdate ? resultToUpdate.resultUrl : ''"  class="form-control form-control-alternative" placeholder="Result URL" value="" type="text">
+                        <input *ngIf="selectedBoard" name="resultUrl" [ngModel]="selectedBoard.resultUrl ? selectedBoard.resultUrl : ''"  class="form-control form-control-alternative" placeholder="Result URL" value="" type="text">
                       </div>
                     </div>
                 </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label class="form-control-label" >Description</label>
+                    <textarea name="description" rows="6" [ngModel]="resultToUpdate ? resultToUpdate?.description : ''"
+                              class="form-control form-control-alternative" placeholder="Result Description" value="" type="text"></textarea>
+                  </div>
+                </div>
+              </div>
                 <div class="row">
                     <div class="col-md-8">
                       <div class="form-group">
@@ -124,8 +145,9 @@
                 </div>
             </div>
             <div class="text-center">
-              <button *ngIf="!resultId" type="button" class="btn btn-primary my-4" type="submit">Add Result</button>
+              <button *ngIf="!resultId && !copyResultId" type="button" class="btn btn-primary my-4" type="submit">Add Result</button>
               <button *ngIf="resultId" type="button" class="btn btn-primary my-4" type="submit">Update</button>
+              <button *ngIf="copyResultId" type="button" class="btn btn-primary my-4" type="submit">Create Copy</button>
               <button type="button" class="btn btn-primary my-4" (click)="cancel()">Cancel</button>
             </div>
           </form>

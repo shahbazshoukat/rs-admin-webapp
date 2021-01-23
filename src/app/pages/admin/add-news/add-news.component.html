@@ -22,9 +22,18 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="form-control-label" for="input-title">Class Title</label>
+                                        <label class="form-control-label" for="input-title">News Title</label>
                                         <input name="title" [ngModel] = "newsId && newsToEdit ? newsToEdit?.title : '' "
                                                id="input-title" class="form-control form-control-alternative" placeholder="News Title" value="" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-title">News Link</label>
+                                        <input name="link" [ngModel] = "newsId && newsToEdit ? newsToEdit?.link : '' "
+                                               id="input-link" class="form-control form-control-alternative" placeholder="News Link" value="" type="text">
                                     </div>
                                 </div>
                             </div>

@@ -70,6 +70,9 @@
                 </td>
                 <td class="text-right">
                   <div ngbDropdown   placement="bottom-right">
+                    <a class="btn btn-sm btn-icon-only text-light" (click)="createResultCopy(result)">
+                      <i class="ni ni-ungroup"></i>
+                    </a>
                     <a class="btn btn-sm btn-icon-only text-light" [routerLink]="['/rs-admin/edit-result/', result?._id, 'board', selectedBoardKey]">
                       <i class="fas fa-edit"></i>
                     </a>

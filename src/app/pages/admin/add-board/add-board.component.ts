@@ -221,8 +221,8 @@ export class AddBoardComponent implements OnInit, OnDestroy {
 
     this.isLoading = true;
 
-    this.boardService.addBoard(null, form.value.key, form.value.title, form.value.province, form.value.city, this.selectedExamTypes,
-        this.selectedCls, form.value.type, form.value.webUrl, form.value.resultUrl, this.tags)
+    this.boardService.addBoard(null, form.value.key, form.value.title, form.value.description, form.value.province, form.value.city,
+        this.selectedExamTypes, this.selectedCls, form.value.type, form.value.webUrl, form.value.resultUrl, this.tags)
         .pipe(takeWhile(this.isAlive))
         .subscribe(
             response => {
@@ -275,8 +275,8 @@ export class AddBoardComponent implements OnInit, OnDestroy {
 
     this.isLoading = true;
 
-    this.boardService.updateBoard(this.boardId, form.value.key, form.value.title, form.value.province, form.value.city,
-        this.selectedExamTypes, this.selectedCls, form.value.type,  form.value.webUrl, form.value.resultUrl, this.tags)
+    this.boardService.updateBoard(this.boardId, form.value.key, form.value.title, form.value.description, form.value.province,
+        form.value.city, this.selectedExamTypes, this.selectedCls, form.value.type,  form.value.webUrl, form.value.resultUrl, this.tags)
         .pipe(takeWhile(this.isAlive))
         .subscribe(response => {
 

@@ -16,7 +16,9 @@ export class ResultService {
     announceDate: any,
     examType: number,
     resultUrl: string,
-    tags: string[]
+    description: string,
+    tags: string[],
+    showAnnouncedDate: boolean
   ) {
     const resultData: Result = {
       _id: _id,
@@ -27,7 +29,9 @@ export class ResultService {
       announceDate: announceDate,
       examType: examType,
       resultUrl: resultUrl,
-      tags: tags
+      description: description,
+      tags: tags,
+      showAnnouncedDate: showAnnouncedDate
     };
     return this.http.post<{success: boolean, message: string, data: any}>('/api/result', resultData);
   }
@@ -65,7 +69,9 @@ export class ResultService {
     announceDate: any,
     examType: number,
     resultUrl: string,
-    tags: string[]
+    description: string,
+    tags: string[],
+    showAnnouncedDate: boolean
   ) {
     const update = {
       status: status,
@@ -75,7 +81,9 @@ export class ResultService {
       announceDate: announceDate,
       examType: examType,
       resultUrl: resultUrl,
-      tags: tags
+      description: description,
+      tags: tags,
+      showAnnouncedDate: showAnnouncedDate
      };
       return this.http.put<{success: boolean, message: string, data: any}>('/api/updateResult/' + resultId, update);
   }

@@ -114,7 +114,7 @@ export class AddNewsComponent implements OnInit, OnDestroy {
 
     this.isLoading = true;
 
-    this.newsService.addNews(form.value.title, form.value.description)
+    this.newsService.addNews(form.value.title, form.value.link, form.value.description)
         .pipe(takeWhile(this.isAlive))
         .subscribe(
             response => {
@@ -156,7 +156,7 @@ export class AddNewsComponent implements OnInit, OnDestroy {
 
     if (this.newsId) {
 
-      this.newsService.updateNews(this.newsId, form.value.title, form.value.description)
+      this.newsService.updateNews(this.newsId, form.value.title, form.value.link, form.value.description)
           .pipe(takeWhile(this.isAlive)).subscribe(
           response => {
 

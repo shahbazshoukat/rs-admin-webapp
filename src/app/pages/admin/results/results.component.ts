@@ -5,6 +5,7 @@ import { AnimationOptions } from 'ngx-lottie';
 import { AlertService } from 'ngx-alerts';
 import * as Enums from '@app/app.enums';
 import { takeWhile } from 'rxjs/operators';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-results',
@@ -214,6 +215,107 @@ export class ResultsComponent implements OnInit, OnDestroy {
       }
 
     });
+
+  }
+
+  createResultCopy(result) {
+
+    if (result) {
+
+      const newYear = (Number(result.year) + 1).toString();
+
+      const tags = [];
+
+      if (Array.isArray(result.tags)) {
+
+        result.tags.forEach(tag => {
+
+          if (tag) {
+
+            tags.push(tag.replace(result.year, newYear));
+
+          }
+
+        })
+
+      }
+
+      result.tags = tags;
+
+      result.year = newYear
+
+      result.views = 0;
+
+      if (result.announceDate) {
+
+        const announceDate = new Date(result.announceDate)
+
+        announceDate.setFullYear(announceDate.getFullYear() + 1);
+
+        result.announceDate = announceDate;
+
+      }
+
+      result.sectionId = result.section && result.section._id;
+
+      result.boardId = result.board && result.board._id;
+
+      console.log(result);
+
+      this.addResult(result);
+
+    }
+
+  }
+
+  addResult(result) {
+
+    if (!result) {
+
+      return;
+
+    }
+
+    if (result.status !== true) {
+
+      result.status = false;
+
+    }
+
+    const announceData = result.announceDate;
+
+    const annDate = new Date(announceData.year, announceData.month - 1, announceData.day);
+
+    this.isLoading = true;
+
+    this.resultService.addResult(null, result.status, result.sectionId, result.boardId, result.year, result.announceDate,
+        result.examType, result.resultUrl, result.description, result.tags, result.showAnnouncedDate)
+        .pipe(takeWhile(this.isAlive))
+        .subscribe(
+            response => {
+
+              if (response.success && response.message) {
+
+                this.alertService.success(response.message);
+
+                // this.getResultsByBoardKey();
+
+              }
+
+              this.isLoading = false;
+
+            },
+            error => {
+
+              this.isLoading = false;
+
+              if (error && error.error && error.error.message) {
+
+                this.alertService.danger(error.error.message);
+
+              }
+
+            });
 
   }
 
