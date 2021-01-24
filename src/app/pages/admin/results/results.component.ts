@@ -65,7 +65,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
           if (response && response.success && response.data) {
 
-            this.results = response.data;
+            this.results = response.data.results;
 
             this.parseResultsData(this.results);
 
