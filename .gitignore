@@ -27,8 +27,6 @@ build/Release
 node_modules
 /node_modules
 
-dist 
-/dist
 # Debug log from npm
 npm-debug.log
 
