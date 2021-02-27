@@ -17,6 +17,8 @@ export class AddNewsComponent implements OnInit, OnDestroy {
   newsId: string;
   isEdit = false;
   newsToEdit: any;
+  postToFb = false;
+  postText: string;
   isLoading = false;
 
   loadingAnimOptions: AnimationOptions = {
@@ -112,9 +114,16 @@ export class AddNewsComponent implements OnInit, OnDestroy {
 
     }
 
+    const newsData: any = {
+      link: form.value.link,
+      description: form.value.description,
+      postToFb: this.postToFb,
+      postText: form.value.postText
+    };
+
     this.isLoading = true;
 
-    this.newsService.addNews(form.value.title, form.value.link, form.value.description)
+    this.newsService.addNews(newsData)
         .pipe(takeWhile(this.isAlive))
         .subscribe(
             response => {
@@ -152,11 +161,18 @@ export class AddNewsComponent implements OnInit, OnDestroy {
 
     }
 
+    const newsData: any = {
+      link: form.value.link,
+      description: form.value.description,
+      postToFb: this.postToFb,
+      postText: form.value.postText
+    };
+
     this.isLoading = true;
 
     if (this.newsId) {
 
-      this.newsService.updateNews(this.newsId, form.value.title, form.value.link, form.value.description)
+      this.newsService.updateNews({ newsId: this.newsId }, newsData)
           .pipe(takeWhile(this.isAlive)).subscribe(
           response => {
 

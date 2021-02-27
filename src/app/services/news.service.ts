@@ -6,11 +6,9 @@ export class NewsService {
 
     constructor (private http: HttpClient) {}
 
-    addNews(title: string, link: string, description: string) {
+    addNews(body) {
 
-        const newsData: any = { title: title, link: link, description: description};
-
-        return this.http.post<{success: boolean, message: string, data: any}>('/api/news', newsData);
+        return this.http.post<{success: boolean, message: string, data: any}>('/api/news', body);
 
     }
 
@@ -26,11 +24,9 @@ export class NewsService {
 
     }
 
-    updateNews( newsId: string, title: string, link: string, description: string ) {
+    updateNews(params, body) {
 
-        const update = { title: title, link: link, description: description };
-
-        return this.http.put<{success: boolean, message: string, data: any}>(`/api/news/${newsId}/update`, update);
+        return this.http.put<{success: boolean, message: string, data: any}>(`/api/news/${params.newsId}/update`, body);
 
     }
 
