@@ -18,6 +18,8 @@ export class AddResultComponent implements OnInit, OnDestroy {
   boards = [];
   alive = true;
   classes = [];
+  postToFb = false;
+  postText: string;
   resultId: string;
   isLoading = false;
   selectedBoard: any;
@@ -234,10 +236,24 @@ export class AddResultComponent implements OnInit, OnDestroy {
 
     const annDate = new Date(announceData.year, announceData.month - 1, announceData.day);
 
+    const resultData = {
+      status: form.value.status,
+      sectionId: form.value.clas,
+      boardId: form.value.board,
+      year: form.value.year,
+      announceDate: annDate,
+      examType: form.value.examType,
+      resultUrl: form.value.resultUrl,
+      description: form.value.description,
+      tags: this.tags,
+      showAnnouncedDate: form.value.showAnnouncedDate,
+      postToFb: this.postToFb,
+      postText: form.value.postText
+    };
+
     this.isLoading = true;
 
-    this.resultService.addResult(null, form.value.status, form.value.clas, form.value.board, form.value.year, annDate,
-        form.value.examType, form.value.resultUrl, form.value.description, this.tags, form.value.showAnnouncedDate)
+    this.resultService.addResult(resultData)
         .pipe(takeWhile(this.isAlive))
         .subscribe(
         response => {
@@ -291,10 +307,24 @@ export class AddResultComponent implements OnInit, OnDestroy {
 
     const annDate = new Date(announceData.year, announceData.month - 1, announceData.day);
 
+    const resultData = {
+      status: form.value.status,
+      sectionId: form.value.clas,
+      boardId: form.value.board,
+      year: form.value.year,
+      announceDate: annDate,
+      examType: form.value.examType,
+      resultUrl: form.value.resultUrl,
+      description: form.value.description,
+      tags: this.tags,
+      showAnnouncedDate: form.value.showAnnouncedDate,
+      postToFb: this.postToFb,
+      postText: form.value.postText
+    };
+
     this.isLoading = true;
 
-    this.resultService.updateResult(this.resultId, form.value.status, form.value.clas, form.value.board, form.value.year, annDate,
-        form.value.examType, form.value.resultUrl, form.value.description, this.tags, form.value.showAnnouncedDate)
+    this.resultService.updateResult({ resultId: this.resultId }, resultData)
         .pipe(takeWhile(this.isAlive))
         .subscribe(
         response => {

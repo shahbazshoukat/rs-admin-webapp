@@ -236,19 +236,19 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
           }
 
-        })
+        });
 
       }
 
       result.tags = tags;
 
-      result.year = newYear
+      result.year = newYear;
 
       result.views = 0;
 
       if (result.announceDate) {
 
-        const announceDate = new Date(result.announceDate)
+        const announceDate = new Date(result.announceDate);
 
         announceDate.setFullYear(announceDate.getFullYear() + 1);
 
@@ -282,14 +282,22 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
     }
 
-    const announceData = result.announceDate;
-
-    const annDate = new Date(announceData.year, announceData.month - 1, announceData.day);
+    const resultData = {
+      status: result.status,
+      sectionId: result.sectionId,
+      boardId: result.boardId,
+      year: result.year,
+      announceDate: result.announceDate,
+      examType: result.examType,
+      resultUrl: result.resultUrl,
+      description: result.description,
+      tags: result.tags,
+      showAnnouncedDate: result.showAnnouncedDate
+    };
 
     this.isLoading = true;
 
-    this.resultService.addResult(null, result.status, result.sectionId, result.boardId, result.year, result.announceDate,
-        result.examType, result.resultUrl, result.description, result.tags, result.showAnnouncedDate)
+    this.resultService.addResult(resultData)
         .pipe(takeWhile(this.isAlive))
         .subscribe(
             response => {

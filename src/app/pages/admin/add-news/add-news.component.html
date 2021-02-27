@@ -22,16 +22,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="form-control-label" for="input-title">News Title</label>
-                                        <input name="title" [ngModel] = "newsId && newsToEdit ? newsToEdit?.title : '' "
-                                               id="input-title" class="form-control form-control-alternative" placeholder="News Title" value="" type="text">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-title">News Link</label>
+                                        <label class="form-control-label" for="input-link">News Link</label>
                                         <input name="link" [ngModel] = "newsId && newsToEdit ? newsToEdit?.link : '' "
                                                id="input-link" class="form-control form-control-alternative" placeholder="News Link" value="" type="text">
                                     </div>
@@ -43,6 +34,27 @@
                                         <label class="form-control-label" for="input-description">Description</label>
                                         <textarea name="description" rows="4" [ngModel] = "newsId && newsToEdit ? newsToEdit?.description : '' "
                                                   id="input-description" class="form-control form-control-alternative" placeholder="News Description" value="" type="text"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" >
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Post on Fb</label>
+                                        <span class="clearfix"></span>
+                                        <label class="custom-toggle">
+                                            <input name="status" (change)="postToFb = !postToFb" [checked]="postToFb" type="checkbox">
+                                            <span class="custom-toggle-slider rounded-circle"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="postToFb">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-fb-post-text">Post Description</label>
+                                        <textarea name="postText" rows="4" [ngModel]="postText"
+                                                  id="input-fb-post-text" class="form-control form-control-alternative" placeholder="Post Description" value="" type="text"></textarea>
                                     </div>
                                 </div>
                             </div>

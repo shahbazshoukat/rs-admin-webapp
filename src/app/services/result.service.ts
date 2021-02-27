@@ -7,33 +7,8 @@ export class ResultService {
 
   constructor (private http: HttpClient) {}
 
-  addResult(
-    _id: string,
-    status: boolean,
-    section: string,
-    board: string,
-    year: string,
-    announceDate: any,
-    examType: number,
-    resultUrl: string,
-    description: string,
-    tags: string[],
-    showAnnouncedDate: boolean
-  ) {
-    const resultData: Result = {
-      _id: _id,
-      status: status,
-      sectionId: section,
-      boardId: board,
-      year: year,
-      announceDate: announceDate,
-      examType: examType,
-      resultUrl: resultUrl,
-      description: description,
-      tags: tags,
-      showAnnouncedDate: showAnnouncedDate
-    };
-    return this.http.post<{success: boolean, message: string, data: any}>('/api/result', resultData);
+  addResult(body) {
+    return this.http.post<{success: boolean, message: string, data: any}>('/api/result', body);
   }
 
   getLatestResults() {
@@ -60,32 +35,8 @@ export class ResultService {
     return this.http.get<{success: boolean, message: string, data: any}>(`/api/results/board/${boardKey}`);
   }
 
-  updateResult(
-    resultId: string,
-    status: boolean,
-    section: string,
-    boardId: string,
-    year: string,
-    announceDate: any,
-    examType: number,
-    resultUrl: string,
-    description: string,
-    tags: string[],
-    showAnnouncedDate: boolean
-  ) {
-    const update = {
-      status: status,
-      sectionId: section,
-      boardId: boardId,
-      year: year,
-      announceDate: announceDate,
-      examType: examType,
-      resultUrl: resultUrl,
-      description: description,
-      tags: tags,
-      showAnnouncedDate: showAnnouncedDate
-     };
-      return this.http.put<{success: boolean, message: string, data: any}>('/api/updateResult/' + resultId, update);
+  updateResult(params, body) {
+      return this.http.put<{success: boolean, message: string, data: any}>(`/api/updateResult/${params.resultId}`, body);
   }
 
 

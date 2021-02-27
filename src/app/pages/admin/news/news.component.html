@@ -28,7 +28,6 @@
                     <table class="table align-items-center table-flush">
                         <thead class="thead-light">
                         <tr>
-                            <th scope="col">Name</th>
                             <th>Link</th>
                             <th scope="col">Description</th>
                             <th scope="col"></th>
@@ -37,10 +36,8 @@
                         <tbody *ngIf="news">
                         <tr *ngFor = "let nws of news | search: 'title,description': newsSearchQuery"  >
                             <td>
-                                {{nws?.title}}
-                            </td>
-                            <td>
-                                <a [href]="nws?.link" target="_blank">Link</a>
+                                <a *ngIf="nws?.link" [href]="nws?.link" target="_blank">Link</a>
+                                <a *ngIf="!nws?.link">No Link</a>
                             </td>
                             <td>
                                 {{nws?.description}}
