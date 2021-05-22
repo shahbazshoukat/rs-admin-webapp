@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "buildDocker": "node ./node_modules/@angular/cli/bin/ng build --prod --aot --build-optimizer",
     "buildThrottle": "node build --prod --aot --build-optimizer",
     "build": "node --max_old_space_size=4096 ./node_modules/@angular/cli/bin/ng build --prod --aot --build-optimizer --base-href=/rcc/",
     "sourceMap": "node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng build --prod --aot --source-map",
