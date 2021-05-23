@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AnimationOptions } from 'ngx-lottie';
 import { AlertService } from 'ngx-alerts';
 import { takeWhile } from 'rxjs/operators';
+import { environment as ENV } from '@env/environment';
 
 @Component({
   selector: 'app-boards',
@@ -16,6 +17,7 @@ export class BoardsComponent implements OnInit, OnDestroy {
   alive = true;
   isLoading = true;
   boardSearchQuery = '';
+  reportSheetLink = ENV.reportSheetLink;
 
   loadingAnimOptions: AnimationOptions = {
     path: '/assets/lib/loading-spinner.json',

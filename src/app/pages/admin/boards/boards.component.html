@@ -20,6 +20,7 @@
               <input name="search" [(ngModel)]="boardSearchQuery" class="form-control form-control-alternative border-light border shadow-none" placeholder="Search" value="" type="text">
             </div>
             <div class="col-4 text-right">
+              <a [href]="reportSheetLink" target="_blank" class="btn btn-sm btn-primary">Report</a>
               <a routerLinkActive="active" [routerLink]="['/rs-admin/add-board']" class="btn btn-sm btn-primary">Add</a>
             </div>
           </div>
@@ -28,6 +29,7 @@
           <table class="table align-items-center table-flush">
             <thead class="thead-light">
               <tr>
+                <th scope="col">No#</th>
                 <th scope="col">Name</th>
                 <th scope="col">Province</th>
                 <!-- <th scope="col">City</th> -->
@@ -40,7 +42,10 @@
               </tr>
             </thead>
             <tbody *ngIf="boards">
-              <tr *ngFor="let board of boards | search: 'title,province,webUrl,resultUrl': boardSearchQuery">
+              <tr *ngFor="let board of boards | search: 'title,province,webUrl,resultUrl': boardSearchQuery; let i = index;">
+                <td>
+                  {{i + 1}}
+                </td>
                 <td>
                   {{board.title}}
                 </td>
@@ -54,10 +59,10 @@
                   {{board.views}}
                 </td>
                 <td>
-                  <a href="{{board.webUrl}}" >Website</a>
+                  <a href="{{board.webUrl}}" target="_blank">Website</a>
                 </td>
                 <td>
-                  <a href="{{board.resultUrl}}" >Result</a>
+                  <a href="{{board.resultUrl}}" target="_blank">Result</a>
                 </td>
                 <td>
                   <a class="btn btn-primary btn-sm" [routerLink]="['/rs-admin/results', board?.key]">Results</a>
