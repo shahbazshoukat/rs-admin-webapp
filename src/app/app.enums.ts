@@ -23,3 +23,14 @@ export enum USER_ROLE {
   ADMIN = 'ADMIN',
   USER = 'USER'
 }
+
+export const FILE_EXTENSION = Object.freeze({
+  CSV: 'csv',
+  IPA: 'ipa',
+  APP: 'app',
+  ZIP: 'zip',
+  APK: 'apk',
+  DOC: 'doc',
+  TXT: 'txt',
+  PDF: 'pdf'
+});

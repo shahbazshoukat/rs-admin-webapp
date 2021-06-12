@@ -1,0 +1,85 @@
+<div class="header bg-gradient-default pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+        <div class="header-body">
+        </div>
+    </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--9">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <div class="row align-items-center">
+                        <div class="col-4">
+                            <h3 class="mb-0">{{selectedBoard}} Date Sheets</h3>
+                        </div>
+                        <div class="col-4 text-left">
+                            <input name="search" [(ngModel)]="dateSheetSearchQuery" class="form-control form-control-alternative border-light border shadow-none" placeholder="Search" value="" type="text">
+                        </div>
+                        <div class="col-4 text-right">
+                            <a [routerLink]="['/rs-admin/add-date-sheet', selectedBoardKey]" class="btn btn-sm btn-primary">Add</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive tableWrap">
+                    <table class="table align-items-center table-flush table-sm">
+                        <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Classes</th>
+                            <th scope="col">Year</th>
+                            <th scope="col">Exam Type</th>
+                            <th scope="col">Views</th>
+                            <th scope="col">View URL</th>
+                            <th scope="col">Download URL</th>
+                            <th scope="col">Comments</th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody *ngIf="dateSheets" style="max-height: 700px; overflow-y: auto" class="scrollbar-inner">
+                        <tr *ngFor = "let dateSheet of dateSheets | search: 'sectionTitle,year,announceDate,examTypeText': dateSheetSearchQuery">
+                            <td>
+                                <span *ngFor="let section of dateSheet?.sections">
+                                    {{section?.title}}
+                                </span>
+                            </td>
+                            <td>
+                                {{dateSheet?.year}}
+                            </td>
+                            <td>
+                                {{dateSheet?.examTypeText}}
+                            </td>
+                            <td>
+                                {{dateSheet?.views}}
+                            </td>
+                            <td>
+                                <a href="{{dateSheet?.viewUrl}}" target="_blank" >View</a>
+                            </td>
+                            <td>
+                                <a href="{{dateSheet?.downloadUrl}}" target="_blank" >Download</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-primary btn-sm" [routerLink]="['/rs-admin/comments/date-sheet/', dateSheet?._id]">Comments</a>
+                            </td>
+                            <td class="text-right">
+                                <div ngbDropdown   placement="bottom-right">
+                                    <a class="btn btn-sm btn-icon-only text-light" [routerLink]="['/rs-admin/edit-date-sheet/', dateSheet?._id, 'board', selectedBoardKey]">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-icon-only text-light" (click)="removeDateSheet(dateSheet)" >
+                                        <i style="font-size: large;" class="ni ni-fat-remove"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer py-4">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ngx-alerts></ngx-alerts>

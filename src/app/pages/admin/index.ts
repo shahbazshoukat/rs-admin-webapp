@@ -12,3 +12,5 @@ export * from './news/news.component';
 export * from './add-news/add-news.component';
 export * from './users/users.component';
 export * from './add-user/add-user.component';
+export * from './add-date-sheet/add-date-sheet.component';
+export * from './date-sheets/date-sheets.component';

@@ -1,0 +1,142 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" >
+    <span class="mask bg-gradient-default opacity-8"></span>
+</div>
+<div class="container-fluid mt--9">
+    <div class="row">
+
+        <div class="col-xl-12 order-xl-1">
+            <div class="card bg-secondary shadow">
+                <div class="card-header bg-white border-0">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h3 class="mb-0" *ngIf="!dateSheetId && !copyDateSheetId">Add a Date Sheet</h3>
+                            <h3 class="mb-0" *ngIf="dateSheetId">Edit a Date Sheet</h3>
+                            <h3 class="mb-0" *ngIf="copyDateSheetId">Copy a Date Sheet</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form (submit) = "submitForm(dateSheetForm)" #dateSheetForm="ngForm" >
+                        <div class="pl-lg-4">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group" >
+                                        <label class="form-control-label" >Select Classes</label>
+                                        <ng-multiselect-dropdown
+                                                class = "form-control form-control-alternative"
+                                                style="border-color: transparent;"
+                                                [placeholder]="'Select Classes'"
+                                                [data]="classes"
+                                                [(ngModel)]="selectedClasses"
+                                                [settings]="classesSettings"
+                                                [ngModelOptions]="{standalone: true}">
+                                        </ng-multiselect-dropdown>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" >Board</label>
+                                        <select (change) = "changeBoard($event)" name="board" [ngModel]="dateSheetToUpdate ? dateSheetToUpdate.board : ''" class="form-control form-control-alternative">
+                                            <option *ngFor="let board of boards" value="{{board._id}}" >{{board.title}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Year</label>
+                                        <select name="year" [ngModel]="dateSheetToUpdate ? dateSheetToUpdate.year : ''" class="form-control form-control-alternative">
+                                            <option value="" disabled>Select Year</option>
+                                            <option value="2027" >2027</option>
+                                            <option value="2026" >2026</option>
+                                            <option value="2025" >2025</option>
+                                            <option value="2024" >2024</option>
+                                            <option value="2023" >2023</option>
+                                            <option value="2022" >2022</option>
+                                            <option value="2021" >2021</option>
+                                            <option value="2020" >2020</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" >Exam Type</label>
+                                        <select name="examType" [ngModel]="dateSheetToUpdate ? dateSheetToUpdate.examType : ''" class="form-control form-control-alternative">
+                                            <option value="" disabled>Select Exam Type</option>
+                                            <option value="0" >Annual</option>
+                                            <option value="1" >Supply</option>
+                                            <option value="2" >Test</option>
+                                            <option value="3" >Retotal</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-control-label" >Upload File</label>
+                                        <input name="dateSheetUrl" type="file" class="form-control form-control-alternative" (change)="onFileUpload($event)">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="form-control-label" >Description</label>
+                                        <textarea name="description" rows="6" [ngModel]="dateSheetToUpdate ? dateSheetToUpdate?.description : ''"
+                                                  class="form-control form-control-alternative" placeholder="Date Sheet Description" value="" type="text"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" >
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Post on Fb</label>
+                                        <span class="clearfix"></span>
+                                        <label class="custom-toggle">
+                                            <input name="status" (change)="postToFb = !postToFb" [checked]="postToFb" type="checkbox">
+                                            <span class="custom-toggle-slider rounded-circle"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="postToFb">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-fb-post-text">Post Description</label>
+                                        <textarea name="postText" rows="4" [ngModel]="postText"
+                                                  id="input-fb-post-text" class="form-control form-control-alternative" placeholder="Post Description" value="" type="text"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="form-control-label" >Tags</label>
+                                        <form (submit) = "addTag(tagForm)" #tagForm = "ngForm" >
+                                            <input name="tagTitle" ngModel  class="form-control form-control-alternative" placeholder="Tags" value="" type="text">
+                                            <button class="btn btn-sm btn-primary" style="margin-top: 10px;" type="submit"  >Add</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8" *ngFor="let tag of tags">
+                                    <span class="badge badge-primary" (click)="removeTag(tag)" >{{tag}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button *ngIf="!dateSheetId && !copyDateSheetId" type="button" class="btn btn-primary my-4" type="submit">Add Date Sheet</button>
+                            <button *ngIf="dateSheetId" type="button" class="btn btn-primary my-4" type="submit">Update</button>
+                            <button *ngIf="copyDateSheetId" type="button" class="btn btn-primary my-4" type="submit">Create Copy</button>
+                            <button type="button" class="btn btn-primary my-4" (click)="cancel()">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ngx-alerts></ngx-alerts>

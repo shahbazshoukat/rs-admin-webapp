@@ -18,7 +18,9 @@ import {
   NewsComponent,
   AddNewsComponent,
   UsersComponent,
-  AddUserComponent
+  AddUserComponent,
+  AddDateSheetComponent,
+  DateSheetsComponent
 } from '@app/pages/admin';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -54,6 +56,8 @@ export function playerFactory() {
     AddNewsComponent,
     UsersComponent,
     AddUserComponent,
+    AddDateSheetComponent,
+    DateSheetsComponent,
     SafePipe,
     SearchPipe
   ],

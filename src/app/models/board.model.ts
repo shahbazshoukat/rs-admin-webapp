@@ -11,4 +11,5 @@ export interface Board {
   webUrl: string;
   resultUrl: string;
   tags: string[];
+  domain: string;
 }

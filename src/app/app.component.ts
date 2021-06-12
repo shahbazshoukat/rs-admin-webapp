@@ -7,7 +7,7 @@ import { NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'result-square';
+  title = 'dateSheet-square';
 
   constructor(private router: Router) {
     this.router.events.subscribe((evt) => {

@@ -37,6 +37,7 @@
                 <th scope="col">Web URL</th>
                 <th scope="col">Result URL</th>
                 <th scope="col">Results</th>
+                <th scope="col">Date Sheets</th>
                 <!-- <th scope="col">Comments</th> -->
                 <th scope="col"></th>
               </tr>
@@ -66,6 +67,9 @@
                 </td>
                 <td>
                   <a class="btn btn-primary btn-sm" [routerLink]="['/rs-admin/results', board?.key]">Results</a>
+                </td>
+                <td>
+                  <a class="btn btn-primary btn-sm" [routerLink]="['/rs-admin/date-sheets', board?.key]">Date Sheets</a>
                 </td>
                 <!-- <td>
                   <a class="btn btn-primary btn-sm" [routerLink]="['/rs-admin/comments/board/', board._id]">Comments</a>

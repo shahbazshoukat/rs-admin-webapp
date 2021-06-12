@@ -20,7 +20,8 @@ export class BoardService {
     type: string,
     webUrl: string,
     resultUrl: string,
-    tags: string[]
+    tags: string[],
+    domain: string
   ): Observable<any> {
     const boardData: Board = {
       _id: _id,
@@ -34,7 +35,8 @@ export class BoardService {
       type: type,
       webUrl: webUrl,
       resultUrl: resultUrl,
-      tags: tags
+      tags: tags,
+      domain: domain
     };
     return this.http.post<{success: boolean, message: string, data: any}>('/api/board', boardData);
   }
@@ -67,7 +69,8 @@ export class BoardService {
     type: string,
     webUrl: string,
     resultUrl: string,
-    tags: string[]
+    tags: string[],
+    domain: string
   ): Observable<any> {
     const update = {
       key: title.replace(/\s/g, '-'),
@@ -80,7 +83,8 @@ export class BoardService {
       type: type,
       webUrl: webUrl,
       resultUrl: resultUrl,
-      tags: tags
+      tags: tags,
+      domain: domain
      };
 
      return this.http.put<{success: boolean, message: string, data: any}>('/api/updateBoard/' + boardId, update);
