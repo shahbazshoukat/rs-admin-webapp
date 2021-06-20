@@ -1,0 +1,79 @@
+<div class="header bg-gradient-default pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+        <div class="header-body">
+        </div>
+    </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--9">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <div class="row align-items-center">
+                        <div class="col-4">
+                            <h3 class="mb-0">{{selectedBoard}} Model Papers</h3>
+                        </div>
+                        <div class="col-4 text-left">
+                            <input name="search" [(ngModel)]="modelPaperSearchQuery" class="form-control form-control-alternative border-light border shadow-none" placeholder="Search" value="" type="text">
+                        </div>
+                        <div class="col-4 text-right">
+                            <a [routerLink]="['/rs-admin/add-model-paper', selectedBoardKey]" class="btn btn-sm btn-primary">Add</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive tableWrap">
+                    <table class="table align-items-center table-flush table-sm">
+                        <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Class</th>
+                            <th scope="col">Subject</th>
+                            <th scope="col">Views</th>
+                            <th scope="col">View URL</th>
+                            <th scope="col">Download URL</th>
+                            <th scope="col">Comments</th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody *ngIf="modelPapers" style="max-height: 700px; overflow-y: auto" class="scrollbar-inner">
+                        <tr *ngFor = "let modelPaper of modelPapers | search: 'sectionTitle,subject': modelPaperSearchQuery">
+                            <td>
+                                {{modelPaper?.section?.title}}
+                            </td>
+                            <td>
+                                {{modelPaper?.subject}}
+                            </td>
+                            <td>
+                                {{modelPaper?.views}}
+                            </td>
+                            <td>
+                                <a href="{{modelPaper?.viewUrl}}" target="_blank" >View</a>
+                            </td>
+                            <td>
+                                <a href="{{modelPaper?.downloadUrl}}" target="_blank" >Download</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-primary btn-sm" [routerLink]="['/rs-admin/comments/model-paper/', modelPaper?._id]">Comments</a>
+                            </td>
+                            <td class="text-right">
+                                <div ngbDropdown   placement="bottom-right">
+                                    <a class="btn btn-sm btn-icon-only text-light" [routerLink]="['/rs-admin/edit-model-paper/', modelPaper?._id, 'board', selectedBoardKey]">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-icon-only text-light" (click)="removeModelPaper(modelPaper)" >
+                                        <i style="font-size: large;" class="ni ni-fat-remove"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer py-4">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ngx-alerts></ngx-alerts>

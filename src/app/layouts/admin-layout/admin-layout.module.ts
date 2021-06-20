@@ -20,7 +20,9 @@ import {
   UsersComponent,
   AddUserComponent,
   AddDateSheetComponent,
-  DateSheetsComponent
+  DateSheetsComponent,
+    AddModelPaperComponent,
+    ModelPapersComponent
 } from '@app/pages/admin';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -33,37 +35,42 @@ export function playerFactory() {
 }
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild(AdminLayoutRoutes),
-    FormsModule,
-    HttpClientModule,
-    NgbModule,
-    NgMultiSelectDropDownModule.forRoot(),
-    LottieModule.forRoot({player: playerFactory, useCache: true}),
-    AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'right'})
-  ],
-  declarations: [
-    DashboardComponent,
-    AddResultComponent,
-    AddBoardComponent,
-    AddClassComponent,
-    ResultsComponent,
-    BoardsComponent,
-    ClassesComponent,
-    CommentsComponent,
-    NewsComponent,
-    AddNewsComponent,
-    UsersComponent,
-    AddUserComponent,
-    AddDateSheetComponent,
-    DateSheetsComponent,
-    SafePipe,
-    SearchPipe
-  ],
-  providers: [
-    AlertService
-  ]
+    imports: [
+        CommonModule,
+        RouterModule.forChild(AdminLayoutRoutes),
+        FormsModule,
+        HttpClientModule,
+        NgbModule,
+        NgMultiSelectDropDownModule.forRoot(),
+        LottieModule.forRoot({player: playerFactory, useCache: true}),
+        AlertModule.forRoot({maxMessages: 5, timeout: 3000, position: 'right'})
+    ],
+    declarations: [
+        DashboardComponent,
+        AddResultComponent,
+        AddBoardComponent,
+        AddClassComponent,
+        ResultsComponent,
+        BoardsComponent,
+        ClassesComponent,
+        CommentsComponent,
+        NewsComponent,
+        AddNewsComponent,
+        UsersComponent,
+        AddUserComponent,
+        AddDateSheetComponent,
+        DateSheetsComponent,
+        AddModelPaperComponent,
+        ModelPapersComponent,
+        SafePipe,
+        SearchPipe
+    ],
+    exports: [
+        SearchPipe
+    ],
+    providers: [
+        AlertService
+    ]
 })
 
 export class AdminLayoutModule {}

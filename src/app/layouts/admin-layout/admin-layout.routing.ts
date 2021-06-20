@@ -15,7 +15,9 @@ import {
     AddUserComponent,
     UsersComponent,
     AddDateSheetComponent,
-    DateSheetsComponent
+    DateSheetsComponent,
+    AddModelPaperComponent,
+    ModelPapersComponent
 } from '@app/pages/admin';
 
 export const AdminLayoutRoutes: Routes = [
@@ -33,6 +35,10 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'add-date-sheet/:boardKey', component: AddDateSheetComponent, canActivate: [AuthGuard] },
     { path: 'edit-date-sheet/:dateSheetId/board/:boardKey', component: AddDateSheetComponent, canActivate: [AuthGuard] },
     { path: 'copy-date-sheet/:copyDateSheetId/board/:boardKey', component: AddDateSheetComponent, canActivate: [AuthGuard] },
+
+    { path: 'model-papers/:boardKey', component: ModelPapersComponent, canActivate: [AuthGuard] },
+    { path: 'add-model-paper/:boardKey', component: AddModelPaperComponent, canActivate: [AuthGuard] },
+    { path: 'edit-model-paper/:modelPaperId/board/:boardKey', component: AddModelPaperComponent, canActivate: [AuthGuard] },
 
     { path: 'classes', component: ClassesComponent, canActivate: [AuthGuard] },
     { path: 'add-class', component: AddClassComponent, canActivate: [AuthGuard] },

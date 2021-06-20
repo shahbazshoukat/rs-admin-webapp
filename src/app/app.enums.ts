@@ -34,3 +34,15 @@ export const FILE_EXTENSION = Object.freeze({
   TXT: 'txt',
   PDF: 'pdf'
 });
+
+export const SUBJECT = Object.freeze({
+  URDU: 'urdu',
+  ENGLISH: 'english',
+  ISLAMIYAT: 'Islamiyat',
+  PAK_STUDY: 'pak_study',
+  PHYSICS: 'physics',
+  CHEMISTRY: 'chemistry',
+  BIOLOGY: 'biology',
+  MATH: 'math',
+  GENERAL_MATH: 'general_math'
+});

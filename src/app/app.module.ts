@@ -18,26 +18,28 @@ import { LoadingBarHttpModule } from '@ngx-loading-bar/http';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { PageNotFoundComponent } from '@app/pages/page-not-found/page-not-found.component';
+import { AdminLayoutModule } from '@app/layouts/admin-layout/admin-layout.module';
 export function playerFactory() {
   return player;
 }
 
 @NgModule({
-  imports: [
-    BrowserAnimationsModule,
-    FormsModule,
-    HttpClientModule,
-    ComponentsModule,
-    NgbModule,
-    RouterModule,
-    AppRoutingModule,
-    LoadingBarModule,
-    LoadingBarHttpModule,
-    LoadingBarRouterModule,
-    LoadingBarHttpClientModule,
-    LottieModule.forRoot({player: playerFactory, useCache: true}),
-    AlertModule.forRoot()
-  ],
+    imports: [
+        BrowserAnimationsModule,
+        FormsModule,
+        HttpClientModule,
+        ComponentsModule,
+        NgbModule,
+        RouterModule,
+        AppRoutingModule,
+        LoadingBarModule,
+        LoadingBarHttpModule,
+        LoadingBarRouterModule,
+        LoadingBarHttpClientModule,
+        LottieModule.forRoot({player: playerFactory, useCache: true}),
+        AlertModule.forRoot(),
+        AdminLayoutModule
+    ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,

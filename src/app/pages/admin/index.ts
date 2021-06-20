@@ -14,3 +14,5 @@ export * from './users/users.component';
 export * from './add-user/add-user.component';
 export * from './add-date-sheet/add-date-sheet.component';
 export * from './date-sheets/date-sheets.component';
+export * from './model-papers/model-papers.component';
+export * from './add-model-paper/add-model-paper.component';
