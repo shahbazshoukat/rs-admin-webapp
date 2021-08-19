@@ -27,7 +27,7 @@
                     <table class="table align-items-center table-flush table-sm">
                         <thead class="thead-light">
                         <tr>
-                            <th scope="col">Classes</th>
+                            <th scope="col">Class</th>
                             <th scope="col">Year</th>
                             <th scope="col">Exam Type</th>
                             <th scope="col">Views</th>
@@ -40,9 +40,7 @@
                         <tbody *ngIf="dateSheets" style="max-height: 700px; overflow-y: auto" class="scrollbar-inner">
                         <tr *ngFor = "let dateSheet of dateSheets | search: 'sectionTitle,year,announceDate,examTypeText': dateSheetSearchQuery">
                             <td>
-                                <span *ngFor="let section of dateSheet?.sections">
-                                    {{section?.title}}
-                                </span>
+                                {{dateSheet?.section?.title}}
                             </td>
                             <td>
                                 {{dateSheet?.year}}

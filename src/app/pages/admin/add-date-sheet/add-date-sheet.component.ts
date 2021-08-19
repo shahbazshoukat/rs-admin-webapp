@@ -106,8 +106,6 @@ export class AddDateSheetComponent implements OnInit, OnDestroy {
 
                 this.tags = this.dateSheetToUpdate.tags;
 
-                this.selectedClasses = this.dateSheetToUpdate.sections;
-
               }
 
               this.isLoading = false;
@@ -235,12 +233,6 @@ export class AddDateSheetComponent implements OnInit, OnDestroy {
 
     }
 
-    this.selectedClasses.forEach(cls => {
-
-      this.selectedCls.push(cls._id);
-
-    });
-
     if (form.value.status !== true) {
 
       form.value.status = false;
@@ -248,7 +240,7 @@ export class AddDateSheetComponent implements OnInit, OnDestroy {
     }
 
     const dateSheetDate = {
-      sections: this.selectedCls,
+      section: form.value.section,
       boardId: form.value.board,
       year: form.value.year,
       examType: form.value.examType,
@@ -323,7 +315,7 @@ export class AddDateSheetComponent implements OnInit, OnDestroy {
     const annDate = new Date(announceData.year, announceData.month - 1, announceData.day);
 
     const dateSheetDate = {
-      sections: this.selectedCls,
+      section: form.value.section,
       boardId: form.value.board,
       year: form.value.year,
       examType: form.value.examType,
