@@ -29,3 +29,11 @@ jobs:
           registry: docker.io
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+          
+      - name: Deploy Docker Container to Admin Dashboard
+        env:
+            PRIVATE_KEY: ${{ secrets.AWS_ADMIN_DASHBOARD_PRIVATE_KEY }}
+        run: |
+            echo "$PRIVATE_KEY" > private_key && chmod 400 private_key
+            ssh -o StrictHostKeyChecking=no -i private_key ${{ secrets.AWS_EC2_HOST_NAME }}@${{ secrets.AWS_ADMIN_DASHBOARD_INSTANCE_IP }} "bash ./deployWebapp.sh"
+            rm private_key
