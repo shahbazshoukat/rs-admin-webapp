@@ -27,7 +27,7 @@
                         <label class="form-control-label" >Announce Status</label>
                         <span class="clearfix"></span>
                         <label class="custom-toggle">
-                            <input name="status" [ngModel]="resultToUpdate ? resultToUpdate.status : ''" type="checkbox" >
+                            <input name="status" [ngModel]="resultToUpdate ? resultToUpdate.status : false" type="checkbox" >
                             <span class="custom-toggle-slider rounded-circle"></span>
                           </label>
                       </div>
@@ -37,7 +37,7 @@
                       <label class="form-control-label" >Show Announced Date</label>
                       <span class="clearfix"></span>
                       <label class="custom-toggle">
-                        <input name="showAnnouncedDate" [ngModel]="resultToUpdate ? resultToUpdate.showAnnouncedDate : ''" type="checkbox" >
+                        <input name="showAnnouncedDate" [ngModel]="resultToUpdate ? resultToUpdate.showAnnouncedDate : false" type="checkbox" >
                         <span class="custom-toggle-slider rounded-circle"></span>
                       </label>
                     </div>
@@ -90,7 +90,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                     </div>
-                    <input name="announceDate" [ngModel]="resultToUpdate ? resultToUpdate.annDate : ''" class="form-control datepicker" placeholder="Select date" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" type="text"/>
+                    <input name="announceDate" [ngModel]="resultToUpdate ? resultToUpdate.annDate : null" class="form-control datepicker" placeholder="Select date" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" type="text"/>
                   </div>
                 </div>
               </div>

@@ -42,7 +42,7 @@ export class BoardService {
   }
 
   getAllBoards(): Observable<any> {
-    return this.http.get<{success: boolean, message: string, data: any}>( '/api/boards');
+    return this.http.get<{success: boolean, message: string, data: any}>( '/api/admin/boards');
   }
 
   getBoardById(boardId: string): Observable<any> {

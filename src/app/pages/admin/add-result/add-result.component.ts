@@ -220,7 +220,9 @@ export class AddResultComponent implements OnInit, OnDestroy {
 
   addResult(form: NgForm) {
 
-    if (!form || form.invalid || !form.value) {
+    console.log(form);
+
+    if (!form || !form.value) {
 
       return;
 
@@ -237,7 +239,7 @@ export class AddResultComponent implements OnInit, OnDestroy {
     const annDate = new Date(announceData.year, announceData.month - 1, announceData.day);
 
     const resultData = {
-      status: form.value.status,
+      status: typeof form.value.status === 'boolean' ? form.value.status : false,
       sectionId: form.value.clas,
       boardId: form.value.board,
       year: form.value.year,
@@ -246,7 +248,7 @@ export class AddResultComponent implements OnInit, OnDestroy {
       resultUrl: form.value.resultUrl,
       description: form.value.description,
       tags: this.tags,
-      showAnnouncedDate: form.value.showAnnouncedDate,
+      showAnnouncedDate: typeof form.value.showAnnouncedDate === 'boolean' ? form.value.showAnnouncedDate : false,
       postToFb: this.postToFb,
       postText: form.value.postText
     };
@@ -291,7 +293,7 @@ export class AddResultComponent implements OnInit, OnDestroy {
 
   updateResult(form: NgForm) {
 
-    if (!form || form.invalid || !form.value) {
+    if (!form || !form.value) {
 
       return;
 
@@ -398,13 +400,19 @@ export class AddResultComponent implements OnInit, OnDestroy {
 
   extractDate(dateStr) {
 
-    const date = new Date(dateStr);
+    if (dateStr) {
 
-    return {
-      day: date.getDate(),
-      month: date.getMonth() + 1,
-      year: date.getFullYear()
-    };
+      const date = new Date(dateStr);
+
+      return {
+        day: date.getDate(),
+        month: date.getMonth() + 1,
+        year: date.getFullYear()
+      };
+
+    }
+
+    return null;
 
   }
 
