@@ -28,13 +28,17 @@
           <table class="table align-items-center table-flush">
             <thead class="thead-light">
             <tr>
+              <th scope="col">No#</th>
               <th scope="col">Name</th>
               <th scope="col">Type</th>
               <th scope="col"></th>
             </tr>
             </thead>
             <tbody *ngIf="classes">
-            <tr *ngFor = "let cls of classes | search: 'title,classType': classSearchQuery"  >
+            <tr *ngFor = "let cls of classes | search: 'title,classType': classSearchQuery; let i = index;">
+              <td>
+                {{i + 1}}
+              </td>
               <td>
                 {{cls?.title}}
               </td>

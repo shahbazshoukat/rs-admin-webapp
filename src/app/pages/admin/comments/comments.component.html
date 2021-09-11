@@ -25,6 +25,7 @@
           <table class="table align-items-center table-flush">
             <thead class="thead-light">
             <tr>
+              <th scope="col">No#</th>
               <th scope="col">Name</th>
               <th scope="col">Text</th>
               <th scope="col">Reply</th>
@@ -32,7 +33,10 @@
             </tr>
             </thead>
             <tbody *ngIf="!isLoading">
-            <tr *ngFor = "let comment of filteredComments"  >
+            <tr *ngFor = "let comment of filteredComments; let i = index;">
+              <td>
+                {{i + 1}}
+              </td>
               <td>
                 {{comment?.name}}
               </td>

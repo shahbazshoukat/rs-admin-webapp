@@ -9,7 +9,7 @@ export const environment = {
   stores: {
     appState: 'appState'
   },
-  reportSheetLink: 'https://docs.google.com/spreadsheets/d/1G5OdoesvaMhN6_2Y7pRK6yYSuapuojKAziqEsCXqYHU/edit?usp=sharing'
+  reportSheetLink: 'https://docs.google.com/spreadsheets/d/1Hf3DSNrWDhpbBNJ2drVFMz5cY6XopoIEQMo45OW1Nuo/edit?usp=sharing'
 };
 
 /*

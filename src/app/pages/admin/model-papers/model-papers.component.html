@@ -27,6 +27,7 @@
                     <table class="table align-items-center table-flush table-sm">
                         <thead class="thead-light">
                         <tr>
+                            <th scope="col">No#</th>
                             <th scope="col">Class</th>
                             <th scope="col">Subject</th>
                             <th scope="col">Views</th>
@@ -37,7 +38,10 @@
                         </tr>
                         </thead>
                         <tbody *ngIf="modelPapers" style="max-height: 700px; overflow-y: auto" class="scrollbar-inner">
-                        <tr *ngFor = "let modelPaper of modelPapers | search: 'sectionTitle,subject': modelPaperSearchQuery">
+                        <tr *ngFor = "let modelPaper of modelPapers | search: 'sectionTitle,subject': modelPaperSearchQuery; let i = index;">
+                            <td>
+                                {{i + 1}}
+                            </td>
                             <td>
                                 {{modelPaper?.section?.title}}
                             </td>

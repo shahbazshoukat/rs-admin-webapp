@@ -27,6 +27,7 @@
           <table class="table align-items-center table-flush table-sm">
             <thead class="thead-light">
               <tr>
+                <th scope="col">No#</th>
                 <th scope="col">Class</th>
                 <th scope="col">Year</th>
                 <th scope="col">Exam Type</th>
@@ -39,7 +40,10 @@
               </tr>
             </thead>
             <tbody *ngIf="results" style="max-height: 700px; overflow-y: auto" class="scrollbar-inner">
-              <tr *ngFor = "let result of results | search: 'sectionTitle,year,announceDate,examTypeText': resultSearchQuery">
+              <tr *ngFor = "let result of results | search: 'sectionTitle,year,announceDate,examTypeText': resultSearchQuery; let i = index;">
+                <td>
+                  {{i + 1}}
+                </td>
                 <td>
                   {{result?.sectionTitle}}
                 </td>

@@ -28,13 +28,17 @@
                     <table class="table align-items-center table-flush">
                         <thead class="thead-light">
                         <tr>
+                            <th scope="col">No#</th>
                             <th>Link</th>
                             <th scope="col">Description</th>
                             <th scope="col"></th>
                         </tr>
                         </thead>
                         <tbody *ngIf="news">
-                        <tr *ngFor = "let nws of news | search: 'title,description': newsSearchQuery"  >
+                        <tr *ngFor = "let nws of news | search: 'title,description': newsSearchQuery; let i = index;">
+                            <td>
+                                {{i + 1}}
+                            </td>
                             <td>
                                 <a *ngIf="nws?.link" [href]="nws?.link" target="_blank">Link</a>
                                 <a *ngIf="!nws?.link">No Link</a>
