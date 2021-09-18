@@ -8,31 +8,31 @@ export class NewsService {
 
     addNews(body) {
 
-        return this.http.post<{success: boolean, message: string, data: any}>('/api/news', body);
+        return this.http.post<{success: boolean, message: string, data: any}>('/api/admin/news', body);
 
     }
 
     getNewsById(newsId) {
 
-        return this.http.get<{success: boolean, message: string, data: any}>(`/api/news/${newsId}`);
+        return this.http.get<{success: boolean, message: string, data: any}>(`/api/admin/news/${newsId}`);
 
     }
 
     getAllNews() {
 
-        return this.http.get<{success: boolean, message: string, data: any}>('/api/news');
+        return this.http.get<{success: boolean, message: string, data: any}>('/api/admin/news');
 
     }
 
     updateNews(params, body) {
 
-        return this.http.put<{success: boolean, message: string, data: any}>(`/api/news/${params.newsId}/update`, body);
+        return this.http.put<{success: boolean, message: string, data: any}>(`/api/admin/news/${params.newsId}/update`, body);
 
     }
 
     deleteNews(newsId: string) {
 
-        return this.http.delete<{success: boolean, message: string, data: any}>(`/api/news/${newsId}/delete`);
+        return this.http.delete<{success: boolean, message: string, data: any}>(`/api/admin/news/${newsId}/delete`);
 
     }
 

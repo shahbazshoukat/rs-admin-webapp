@@ -38,23 +38,23 @@ export class BoardService {
       tags: tags,
       domain: domain
     };
-    return this.http.post<{success: boolean, message: string, data: any}>('/api/board', boardData);
+    return this.http.post<{success: boolean, message: string, data: any}>('/api/admin/board', boardData);
   }
 
   getAllBoards(): Observable<any> {
-    return this.http.get<{success: boolean, message: string, data: any}>( '/api/admin/boards');
+    return this.http.get<{success: boolean, message: string, data: any}>( '/api/admin/admin/boards');
   }
 
   getBoardById(boardId: string): Observable<any> {
-    return this.http.get<{success: boolean, message: string, data: any}>('/api/board/' + boardId);
+    return this.http.get<{success: boolean, message: string, data: any}>('/api/admin/board/' + boardId);
   }
 
   getBoardBySectionTitle(sectionTitle: string): Observable<any> {
-    return this.http.get<{success: boolean, message: string, data: any}>('/api/boards/section/' + sectionTitle);
+    return this.http.get<{success: boolean, message: string, data: any}>('/api/admin/boards/section/' + sectionTitle);
   }
 
   getBoardsBySectionId(sectionId: string): Observable<any> {
-    return this.http.get<{success: boolean, message: string, data: any}>('/api/boards/section/' + sectionId);
+    return this.http.get<{success: boolean, message: string, data: any}>('/api/admin/boards/section/' + sectionId);
   }
 
   updateBoard(
@@ -87,23 +87,23 @@ export class BoardService {
       domain: domain
      };
 
-     return this.http.put<{success: boolean, message: string, data: any}>('/api/updateBoard/' + boardId, update);
+     return this.http.put<{success: boolean, message: string, data: any}>('/api/admin/updateBoard/' + boardId, update);
   }
 
 
   deleteBoard(boardId: string): Observable<any> {
-    return this.http.delete<{success: boolean, message: string, data: any}>('/api/deleteBoard/' + boardId);
+    return this.http.delete<{success: boolean, message: string, data: any}>('/api/admin/deleteBoard/' + boardId);
   }
 
   addComment(boardId, comment) {
 
-    return this.http.post<{success: boolean, message: string, data: any}>(`/api/board/comment/${boardId}`, comment);
+    return this.http.post<{success: boolean, message: string, data: any}>(`/api/admin/board/comment/${boardId}`, comment);
 
   }
 
   removeComment(boardId, commentId) {
 
-    return this.http.delete<{success: boolean, message: string, data: any}>(`/api/board/comment/${boardId}/${commentId}`);
+    return this.http.delete<{success: boolean, message: string, data: any}>(`/api/admin/board/comment/${boardId}/${commentId}`);
 
   }
 

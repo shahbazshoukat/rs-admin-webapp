@@ -16,36 +16,36 @@ export class UsersService {
           email: email,
           password: password
         };
-        return this.http.post<{message: string}>('/api/signUp', user);
+        return this.http.post<{message: string}>('/api/admin/signUp', user);
     }
 
     addUser(user) {
 
-        return this.http.post<{success: boolean, message: string, data: any}>('/api/signUp', user);
+        return this.http.post<{success: boolean, message: string, data: any}>('/api/admin/signUp', user);
 
     }
 
     getUserById(userId) {
 
-        return this.http.get<{success: boolean, message: string, data: any}>(`/api/user/${userId}`);
+        return this.http.get<{success: boolean, message: string, data: any}>(`/api/admin/user/${userId}`);
 
     }
 
     getAllUsers() {
 
-        return this.http.get<{success: boolean, message: string, data: any}>('/api/users');
+        return this.http.get<{success: boolean, message: string, data: any}>('/api/admin/users');
 
     }
 
     updateUser(userId: string, update: any) {
 
-        return this.http.put<{success: boolean, message: string, data: any}>(`/api/user/${userId}/update`, update);
+        return this.http.put<{success: boolean, message: string, data: any}>(`/api/admin/user/${userId}/update`, update);
 
     }
 
     deleteUser(userId: string) {
 
-        return this.http.delete<{success: boolean, message: string, data: any}>(`/api/user/${userId}/delete`);
+        return this.http.delete<{success: boolean, message: string, data: any}>(`/api/admin/user/${userId}/delete`);
 
     }
 
@@ -62,7 +62,7 @@ export class UsersService {
             };
             message: string;
             success: boolean;
-          }>('/api/login', authData);
+          }>('/api/admin/login', authData);
     }
 
     getCurrentUser() {
@@ -91,7 +91,7 @@ export class UsersService {
 
     logout() {
 
-        return this.http.get<{success: boolean, message: string}>('/api/logout');
+        return this.http.get<{success: boolean, message: string}>('/api/admin/logout');
 
     }
 

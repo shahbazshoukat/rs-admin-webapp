@@ -8,24 +8,24 @@ export class ClassService {
 
   addClass(title: string, type: string) {
     const classData: any = { title: title, type: type};
-    return this.http.post<{success: boolean, message: string, data: any}>('/api/section', classData);
+    return this.http.post<{success: boolean, message: string, data: any}>('/api/admin/section', classData);
   }
 
   getAllClasses() {
-    return this.http.get<{success: boolean, message: string, data: any}>('/api/sections');
+    return this.http.get<{success: boolean, message: string, data: any}>('/api/admin/sections');
   }
 
   getClassById(classId) {
-    return this.http.get<{success: boolean, message: string, data: any}>(`/api/section/${classId}`);
+    return this.http.get<{success: boolean, message: string, data: any}>(`/api/admin/section/${classId}`);
   }
 
   updateClass( classId: string, title: string, type: string ) {
     const update = { title: title, type: type };
-    return this.http.put<{success: boolean, message: string, data: any}>(`/api/section/${classId}/update`, update);
+    return this.http.put<{success: boolean, message: string, data: any}>(`/api/admin/section/${classId}/update`, update);
   }
 
   deleteClass(classId: string) {
-    return this.http.delete<{success: boolean, message: string, data: any}>(`/api/section/${classId}/delete`);
+    return this.http.delete<{success: boolean, message: string, data: any}>(`/api/admin/section/${classId}/delete`);
   }
 
 }

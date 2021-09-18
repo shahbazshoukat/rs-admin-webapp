@@ -17,43 +17,43 @@ export class DateSheetService {
 
     form.append('data', JSON.stringify(body));
 
-    return this.http.post<{success: boolean, message: string, data: any}>('/api/date-sheet', form);
+    return this.http.post<{success: boolean, message: string, data: any}>('/api/admin/date-sheet', form);
 
   }
 
   getDateSheetById(dateSheetId: string) {
 
-    return this.http.get<{success: boolean, message: string, data: any}>('/api/date-sheet/' + dateSheetId);
+    return this.http.get<{success: boolean, message: string, data: any}>('/api/admin/date-sheet/' + dateSheetId);
 
   }
 
   getDateSheetsByBoardKey(boardKey) {
 
-    return this.http.get<{success: boolean, message: string, data: any}>(`/api/date-sheets/board/${boardKey}`);
+    return this.http.get<{success: boolean, message: string, data: any}>(`/api/admin/date-sheets/board/${boardKey}`);
 
   }
 
   updateDateSheet(params, body) {
 
-      return this.http.put<{success: boolean, message: string, data: any}>(`/api/update-date-sheet/${params.dateSheetId}`, body);
+      return this.http.put<{success: boolean, message: string, data: any}>(`/api/admin/update-date-sheet/${params.dateSheetId}`, body);
 
   }
 
   deleteDateSheet(dateSheetId: string) {
 
-    return this.http.delete<{success: boolean, message: string, data: any}>('/api/delete-date-sheet/' + dateSheetId);
+    return this.http.delete<{success: boolean, message: string, data: any}>('/api/admin/delete-date-sheet/' + dateSheetId);
 
   }
 
   addComment(dateSheetId, comment) {
 
-    return this.http.post<{success: boolean, message: string, data: any}>(`/api/comment/${dateSheetId}`, comment);
+    return this.http.post<{success: boolean, message: string, data: any}>(`/api/admin/comment/${dateSheetId}`, comment);
 
   }
 
   removeComment(dateSheetId, commentId) {
 
-    return this.http.delete<{success: boolean, message: string, data: any}>(`/api/comment/${dateSheetId}/${commentId}`);
+    return this.http.delete<{success: boolean, message: string, data: any}>(`/api/admin/comment/${dateSheetId}/${commentId}`);
 
   }
 
